@@ -1,206 +1,173 @@
 "use client";
 
-import { useRef } from "react";
-import { motion, useInView } from "framer-motion";
-import { FiGithub, FiExternalLink, FiArrowUpRight } from "react-icons/fi";
+import { useRef, useState } from "react";
+import { motion, useInView, AnimatePresence } from "framer-motion";
+import { FiArrowUpRight } from "react-icons/fi";
 
 const projects = [
   {
+    num: "01",
     title: "FINARC",
-    subtitle: "Financial Intelligence & Transaction Management System",
+    sub: "Financial Intelligence & Transaction Management System",
+    stack: ["Python", "FastAPI", "Next.js", "PostgreSQL", "JWT"],
     description:
-      "Scalable full-stack financial platform with 30+ RESTful API endpoints for transaction processing, account management, and real-time financial analytics. Features JWT authentication, multi-account ledgers, and automated reporting.",
-    highlights: [
-      "30+ REST API endpoints with FastAPI",
-      "Optimized PostgreSQL schema with SQLAlchemy ORM",
-      "JWT-based auth & authorization system",
-      "Real-time net worth tracking & spending insights",
-    ],
-    tech: ["Python", "FastAPI", "Next.js", "TypeScript", "PostgreSQL", "SQLAlchemy", "JWT"],
+      "Scalable financial platform with 30+ REST endpoints for transaction processing, multi-account ledger management, and real-time analytics. Optimised PostgreSQL schema with SQLAlchemy ORM. Secure JWT authentication.",
+    highlights: ["30+ REST API endpoints", "Real-time net worth tracking", "JWT auth & authorisation"],
     github: "https://github.com/Dorai-Sai-Charan",
-    live: null,
-    color: "from-blue-600/20 to-cyan-600/10",
-    border: "border-blue-500/20",
-    accent: "text-blue-400",
-    badge: "Full-Stack",
-    badgeColor: "bg-blue-500/15 text-blue-300 border-blue-500/25",
   },
   {
+    num: "02",
     title: "AI Load Balancer",
-    subtitle: "Cloud Computing Load Balancer using Reinforcement Learning",
+    sub: "Cloud Computing Load Balancer via Reinforcement Learning",
+    stack: ["Python", "TensorFlow", "AWS EC2", "DDPG", "Distributed Systems"],
     description:
-      "Reinforcement learning-based load balancing system using Deep Deterministic Policy Gradient (DDPG) to optimize CPU utilization and minimize task latency across a 5-node AWS EC2 cluster. Published at ICT4SD 2025.",
-    highlights: [
-      "DDPG RL algorithm for dynamic load balancing",
-      "14% reduction in memory usage",
-      "15% reduction in energy consumption",
-      "Published at ICT4SD 2025 International Conference",
-    ],
-    tech: ["Python", "TensorFlow", "AWS EC2", "DDPG", "Distributed Systems", "Cloud Computing"],
+      "DDPG-based reinforcement learning system for dynamic task distribution across 5-node AWS EC2 cluster. Achieved 14% memory and 15% energy reduction over traditional heuristic approaches. Published at ICT4SD 2025.",
+    highlights: ["−14% memory usage", "−15% energy consumption", "Published — ICT4SD 2025"],
     github: "https://github.com/Dorai-Sai-Charan",
-    live: null,
-    color: "from-purple-600/20 to-indigo-600/10",
-    border: "border-purple-500/20",
-    accent: "text-purple-400",
-    badge: "AI / Research",
-    badgeColor: "bg-purple-500/15 text-purple-300 border-purple-500/25",
   },
   {
+    num: "03",
     title: "Solar Fault Detector",
-    subtitle: "Solar Panel Fault Detection Using Deep Learning",
+    sub: "Deep Learning Fault Classification for Solar Panels",
+    stack: ["Python", "PyTorch", "ResNet50", "VGG16", "Computer Vision"],
     description:
-      "Hybrid deep learning pipeline combining ResNet50 and VGG16 for binary and multi-class fault classification on solar panel images. Achieved 97.12% binary accuracy. Published at IEEE ICITEICS 2025.",
-    highlights: [
-      "Hybrid ResNet50 + VGG16 architecture",
-      "97.12% accuracy for binary classification",
-      "78% multi-class classification accuracy",
-      "Published at IEEE ICITEICS 2025, Bengaluru",
-    ],
-    tech: ["Python", "TensorFlow", "PyTorch", "ResNet50", "VGG16", "Deep Learning", "Computer Vision"],
+      "Hybrid ResNet50 + VGG16 model for binary and multi-class solar panel fault detection. Benchmarked against CNN, CBAM-CNN, InceptionV3, AlexNet. 97.12% binary accuracy. Published at IEEE ICITEICS 2025.",
+    highlights: ["97.12% binary accuracy", "78% multi-class accuracy", "Published — IEEE 2025"],
     github: "https://github.com/Dorai-Sai-Charan",
-    live: null,
-    color: "from-emerald-600/20 to-teal-600/10",
-    border: "border-emerald-500/20",
-    accent: "text-emerald-400",
-    badge: "Deep Learning",
-    badgeColor: "bg-emerald-500/15 text-emerald-300 border-emerald-500/25",
   },
 ];
 
 export default function Projects() {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const isInView = useInView(ref, { once: true, margin: "-80px" });
+  const [active, setActive] = useState<number | null>(null);
 
   return (
-    <section id="projects" className="py-24 px-6 max-w-6xl mx-auto" ref={ref}>
+    <section id="projects" className="py-24 md:py-32 px-6 md:px-12 max-w-7xl mx-auto" ref={ref}>
+      {/* Label */}
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={isInView ? { opacity: 1, y: 0 } : {}}
-        transition={{ duration: 0.6 }}
-        className="text-center mb-16"
+        initial={{ opacity: 0, x: -16 }}
+        animate={isInView ? { opacity: 1, x: 0 } : {}}
+        transition={{ duration: 0.5 }}
+        className="flex items-center gap-4 mb-16"
       >
-        <span className="text-sm font-semibold text-blue-400 tracking-widest uppercase mb-3 block">
-          Projects
-        </span>
-        <h2 className="text-4xl md:text-5xl font-bold text-slate-100 mb-4">
-          What I&apos;ve Built
-        </h2>
-        <p className="text-slate-400 max-w-xl mx-auto text-lg">
-          From financial systems to AI research — each project is production-quality, paper-backed, and built to solve real problems.
-        </p>
-      </motion.div>
-
-      <div className="grid grid-cols-1 gap-6">
-        {projects.map((project, i) => (
-          <motion.div
-            key={project.title}
-            initial={{ opacity: 0, y: 40 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: i * 0.15, ease: "easeOut" }}
-            className={`group relative bg-[#0d1929] rounded-2xl border ${project.border} overflow-hidden transition-all duration-300 hover:border-opacity-60 hover:-translate-y-1`}
-            style={{
-              boxShadow: "0 0 0 0 rgba(59,130,246,0)",
-            }}
-            whileHover={{
-              boxShadow: "0 8px 40px rgba(59,130,246,0.1)",
-            }}
-          >
-            {/* Gradient overlay */}
-            <div className={`absolute inset-0 bg-gradient-to-br ${project.color} opacity-50 pointer-events-none`} />
-
-            <div className="relative p-7 md:p-8">
-              <div className="flex flex-col md:flex-row md:items-start gap-6">
-                {/* Left — content */}
-                <div className="flex-1">
-                  <div className="flex items-center gap-3 mb-3">
-                    <span className={`text-xs font-semibold px-2.5 py-1 rounded-full border ${project.badgeColor}`}>
-                      {project.badge}
-                    </span>
-                    <span className="text-xs text-slate-600">0{i + 1}</span>
-                  </div>
-
-                  <h3 className={`text-2xl font-bold text-white mb-1 group-hover:${project.accent} transition-colors`}>
-                    {project.title}
-                  </h3>
-                  <p className={`text-sm font-medium ${project.accent} mb-4`}>{project.subtitle}</p>
-                  <p className="text-slate-400 text-sm leading-relaxed mb-5">{project.description}</p>
-
-                  {/* Highlights */}
-                  <ul className="space-y-1.5 mb-6">
-                    {project.highlights.map((h) => (
-                      <li key={h} className="flex items-start gap-2 text-sm text-slate-300">
-                        <span className={`mt-1.5 w-1.5 h-1.5 rounded-full flex-shrink-0 ${project.accent.replace("text-", "bg-")}`} />
-                        {h}
-                      </li>
-                    ))}
-                  </ul>
-
-                  {/* Tech stack */}
-                  <div className="flex flex-wrap gap-2">
-                    {project.tech.map((t) => (
-                      <span
-                        key={t}
-                        className="px-2.5 py-1 rounded-lg bg-slate-800/80 border border-slate-700/50 text-xs text-slate-400 font-medium"
-                      >
-                        {t}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Right — links */}
-                <div className="flex md:flex-col items-center gap-3 md:pt-2">
-                  <motion.a
-                    href={project.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.9 }}
-                    className="p-3 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 hover:border-slate-500 text-slate-400 hover:text-white transition-all"
-                  >
-                    <FiGithub size={20} />
-                  </motion.a>
-                  {project.live && (
-                    <motion.a
-                      href={project.live}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.9 }}
-                      className="p-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-white transition-all"
-                    >
-                      <FiExternalLink size={20} />
-                    </motion.a>
-                  )}
-                </div>
-              </div>
-            </div>
-
-            {/* Hover arrow */}
-            <div className="absolute top-6 right-6 opacity-0 group-hover:opacity-100 transition-opacity">
-              <FiArrowUpRight className={`${project.accent}`} size={20} />
-            </div>
-          </motion.div>
-        ))}
-      </div>
-
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={isInView ? { opacity: 1 } : {}}
-        transition={{ delay: 0.5 }}
-        className="text-center mt-10"
-      >
+        <span className="section-label">02 — Projects</span>
+        <span className="flex-1 h-px" style={{ background: "var(--border)" }} />
         <a
           href="https://github.com/Dorai-Sai-Charan"
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-slate-700 hover:border-blue-500/40 text-slate-400 hover:text-blue-400 text-sm font-medium transition-all hover:bg-blue-500/10"
+          className="section-label link-hover flex items-center gap-1"
         >
-          <FiGithub size={16} />
-          View All on GitHub
-          <FiArrowUpRight size={14} />
+          View all <FiArrowUpRight size={12} />
         </a>
       </motion.div>
+
+      {/* Project list */}
+      <div>
+        {projects.map((p, i) => (
+          <motion.div
+            key={p.num}
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6, delay: 0.1 + i * 0.12, ease: [0.33, 1, 0.68, 1] }}
+            className="project-row"
+          >
+            {/* Row header */}
+            <button
+              className="w-full text-left py-7 flex items-start md:items-center justify-between gap-4 group"
+              onClick={() => setActive(active === i ? null : i)}
+            >
+              <div className="flex items-start md:items-center gap-5 md:gap-8 flex-1 min-w-0">
+                {/* Number */}
+                <span
+                  className="font-display font-bold text-xs shrink-0 mt-1 md:mt-0"
+                  style={{ color: "var(--muted)" }}
+                >
+                  {p.num}
+                </span>
+
+                {/* Title */}
+                <div className="min-w-0">
+                  <span
+                    className="font-display font-bold text-xl md:text-2xl transition-colors duration-200 group-hover:text-accent block"
+                    style={{ color: "var(--text)" }}
+                  >
+                    {p.title}
+                  </span>
+                  <span className="text-xs mt-0.5 block" style={{ color: "var(--muted)" }}>
+                    {p.sub}
+                  </span>
+                </div>
+              </div>
+
+              {/* Tech + arrow */}
+              <div className="flex items-center gap-4 shrink-0">
+                <div className="hidden lg:flex gap-2">
+                  {p.stack.slice(0, 3).map((t) => (
+                    <span key={t} className="pill">{t}</span>
+                  ))}
+                </div>
+                <motion.div
+                  animate={{ rotate: active === i ? 45 : 0 }}
+                  transition={{ duration: 0.25 }}
+                  className="w-8 h-8 rounded-full border flex items-center justify-center shrink-0"
+                  style={{ borderColor: "var(--border)", color: "var(--muted)" }}
+                >
+                  <FiArrowUpRight size={14} />
+                </motion.div>
+              </div>
+            </button>
+
+            {/* Expanded detail */}
+            <AnimatePresence>
+              {active === i && (
+                <motion.div
+                  key="detail"
+                  initial={{ height: 0, opacity: 0 }}
+                  animate={{ height: "auto", opacity: 1 }}
+                  exit={{ height: 0, opacity: 0 }}
+                  transition={{ duration: 0.35, ease: [0.33, 1, 0.68, 1] }}
+                  style={{ overflow: "hidden" }}
+                >
+                  <div className="pb-8 pl-0 md:pl-16 grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                      <p className="text-sm leading-relaxed" style={{ color: "var(--muted)" }}>
+                        {p.description}
+                      </p>
+                      <div className="mt-5 flex flex-wrap gap-2">
+                        {p.stack.map((t) => (
+                          <span key={t} className="pill-accent">{t}</span>
+                        ))}
+                      </div>
+                    </div>
+                    <div className="space-y-3">
+                      {p.highlights.map((h) => (
+                        <div key={h} className="flex items-center gap-3">
+                          <span
+                            className="w-1.5 h-1.5 rounded-full shrink-0"
+                            style={{ background: "var(--accent)" }}
+                          />
+                          <span className="text-sm" style={{ color: "var(--text)" }}>{h}</span>
+                        </div>
+                      ))}
+                      <a
+                        href={p.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 mt-4 text-sm font-display font-semibold transition-colors"
+                        style={{ color: "var(--accent)" }}
+                      >
+                        View on GitHub <FiArrowUpRight size={14} />
+                      </a>
+                    </div>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </motion.div>
+        ))}
+      </div>
     </section>
   );
 }

@@ -5,46 +5,40 @@ import createGlobe from "cobe";
 
 export default function Globe() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const globeRef = useRef<ReturnType<typeof createGlobe> | null>(null);
 
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-
-    let phi = 0;
-    globeRef.current = createGlobe(canvas, {
+    let phi = 0.5;
+    const globe = createGlobe(canvas, {
       devicePixelRatio: 2,
-      width: 400,
-      height: 400,
-      phi: 0,
-      theta: 0.3,
+      width: 320,
+      height: 320,
+      phi,
+      theta: 0.25,
       dark: 1,
-      diffuse: 1.2,
-      mapSamples: 16000,
-      mapBrightness: 6,
-      baseColor: [0.05, 0.1, 0.3],
-      markerColor: [0.3, 0.6, 1],
-      glowColor: [0.1, 0.3, 0.8],
+      diffuse: 1.0,
+      mapSamples: 18000,
+      mapBrightness: 4,
+      baseColor: [0.06, 0.06, 0.06],
+      markerColor: [0.78, 1.0, 0.0],   // lime accent
+      glowColor: [0.06, 0.06, 0.04],
       markers: [
-        { location: [12.9716, 77.5946], size: 0.08 }, // Bengaluru
-        { location: [15.8281, 78.0373], size: 0.05 }, // Kurnool
+        { location: [12.9716, 77.5946], size: 0.09 },  // Bengaluru
+        { location: [15.8281, 78.0373], size: 0.06 },  // Kurnool
       ],
       onRender(state) {
         state.phi = phi;
-        phi += 0.004;
+        phi += 0.003;
       },
     });
-
-    return () => {
-      globeRef.current?.destroy();
-    };
+    return () => globe.destroy();
   }, []);
 
   return (
     <canvas
       ref={canvasRef}
-      style={{ width: 200, height: 200 }}
-      className="opacity-90"
+      style={{ width: 160, height: 160, opacity: 0.85 }}
     />
   );
 }

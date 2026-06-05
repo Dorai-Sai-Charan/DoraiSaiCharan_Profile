@@ -2,146 +2,99 @@
 
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { FiAward, FiExternalLink } from "react-icons/fi";
-import { HiCheckBadge } from "react-icons/hi2";
 
-const certifications = [
-  {
-    title: "AWS Academy Graduate",
-    subtitle: "Introduction to Cloud Computing",
-    issuer: "Amazon Web Services",
-    icon: "☁️",
-    color: "border-amber-500/25",
-    bg: "bg-amber-500/5",
-    badge: "bg-amber-500/15 text-amber-300 border-amber-500/25",
-    accent: "text-amber-400",
-  },
-  {
-    title: "Image Processing Onramp",
-    subtitle: "MATLAB Certification",
-    issuer: "MathWorks",
-    icon: "🖼️",
-    color: "border-blue-500/25",
-    bg: "bg-blue-500/5",
-    badge: "bg-blue-500/15 text-blue-300 border-blue-500/25",
-    accent: "text-blue-400",
-  },
-  {
-    title: "Computer Vision Onramp",
-    subtitle: "MATLAB Certification",
-    issuer: "MathWorks",
-    icon: "👁️",
-    color: "border-cyan-500/25",
-    bg: "bg-cyan-500/5",
-    badge: "bg-cyan-500/15 text-cyan-300 border-cyan-500/25",
-    accent: "text-cyan-400",
-  },
+const certs = [
+  { year: "2024", issuer: "Amazon Web Services", title: "AWS Academy Graduate — Introduction to Cloud Computing" },
+  { year: "2024", issuer: "MathWorks", title: "Image Processing Onramp (MATLAB)" },
+  { year: "2024", issuer: "MathWorks", title: "Computer Vision Onramp (MATLAB)" },
 ];
 
 const achievements = [
   {
+    year: "Jul 2025",
+    org: "Amrita School of Computing",
     title: "DevOps Bootcamp",
-    org: "Amrita School of Computing, Bengaluru",
-    date: "July 2025",
-    description:
-      "Gained hands-on experience in CI/CD pipelines, DevOps lifecycle, automation, and built dashboards for monitoring and business intelligence insights.",
-    tags: ["CI/CD", "DevOps", "Monitoring", "BI Dashboards", "Automation"],
-    icon: "🚀",
-    color: "border-emerald-500/25",
-    bg: "bg-emerald-500/5",
-    accent: "text-emerald-400",
+    desc: "CI/CD pipelines, DevOps lifecycle, automation, monitoring & BI dashboards.",
   },
 ];
 
 export default function Certifications() {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const isInView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <section id="certifications" className="py-24 px-6 max-w-6xl mx-auto" ref={ref}>
+    <section id="certifications" className="py-24 md:py-32 px-6 md:px-12 max-w-7xl mx-auto" ref={ref}>
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={isInView ? { opacity: 1, y: 0 } : {}}
-        transition={{ duration: 0.6 }}
-        className="text-center mb-16"
+        initial={{ opacity: 0, x: -16 }}
+        animate={isInView ? { opacity: 1, x: 0 } : {}}
+        transition={{ duration: 0.5 }}
+        className="flex items-center gap-4 mb-16"
       >
-        <span className="text-sm font-semibold text-blue-400 tracking-widest uppercase mb-3 block">
-          Credentials
-        </span>
-        <h2 className="text-4xl md:text-5xl font-bold text-slate-100 mb-4">
-          Certifications & Achievements
-        </h2>
-        <p className="text-slate-400 max-w-xl mx-auto text-lg">
-          Continuous learning through certifications, bootcamps, and industry programs.
-        </p>
+        <span className="section-label">05 — Credentials</span>
+        <span className="flex-1 h-px" style={{ background: "var(--border)" }} />
       </motion.div>
 
-      {/* Certifications */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-        {certifications.map((cert, i) => (
-          <motion.div
-            key={cert.title}
-            initial={{ opacity: 0, y: 25 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.5, delay: i * 0.1, ease: "easeOut" }}
-            className={`group card-glow bg-[#0d1929] rounded-2xl border ${cert.color} p-6 relative overflow-hidden`}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+        {/* Certifications */}
+        <div>
+          <p
+            className="font-display font-semibold text-xs tracking-widest uppercase mb-8"
+            style={{ color: "var(--accent)" }}
           >
-            <div className={`absolute inset-0 ${cert.bg} pointer-events-none`} />
-            <div className="relative">
-              <div className="flex items-start justify-between mb-4">
-                <span className="text-3xl">{cert.icon}</span>
-                <HiCheckBadge className={cert.accent} size={22} />
-              </div>
-              <h3 className="text-white font-bold text-sm mb-1">{cert.title}</h3>
-              <p className={`text-xs font-medium ${cert.accent} mb-2`}>{cert.subtitle}</p>
-              <p className="text-xs text-slate-500">{cert.issuer}</p>
-              <div className={`mt-4 inline-flex items-center gap-1.5 text-xs font-semibold px-2.5 py-1 rounded-full border ${cert.badge}`}>
-                <FiAward size={10} />
-                Certified
-              </div>
-            </div>
-          </motion.div>
-        ))}
-      </div>
+            Certifications
+          </p>
+          <div className="space-y-0">
+            {certs.map((c, i) => (
+              <motion.div
+                key={c.title}
+                initial={{ opacity: 0, y: 16 }}
+                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.5, delay: 0.1 + i * 0.1 }}
+                className="border-t py-5 flex gap-6 group"
+                style={{ borderColor: "var(--border)" }}
+              >
+                <span className="font-display text-xs shrink-0 mt-0.5 w-10" style={{ color: "var(--muted)" }}>
+                  {c.year}
+                </span>
+                <div>
+                  <p className="text-sm font-medium leading-snug" style={{ color: "var(--text)" }}>{c.title}</p>
+                  <p className="text-xs mt-1" style={{ color: "var(--muted)" }}>{c.issuer}</p>
+                </div>
+              </motion.div>
+            ))}
+            <div className="border-t" style={{ borderColor: "var(--border)" }} />
+          </div>
+        </div>
 
-      {/* Achievements */}
-      <div className="space-y-4">
-        {achievements.map((ach, i) => (
-          <motion.div
-            key={ach.title}
-            initial={{ opacity: 0, x: -20 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.3 + i * 0.15, ease: "easeOut" }}
-            className={`card-glow bg-[#0d1929] rounded-2xl border ${ach.color} p-6 relative overflow-hidden`}
+        {/* Achievements */}
+        <div>
+          <p
+            className="font-display font-semibold text-xs tracking-widest uppercase mb-8"
+            style={{ color: "var(--accent)" }}
           >
-            <div className={`absolute inset-0 ${ach.bg} pointer-events-none`} />
-            <div className="relative flex items-start gap-4">
-              <span className="text-3xl flex-shrink-0 mt-0.5">{ach.icon}</span>
-              <div className="flex-1">
-                <div className="flex flex-wrap items-start justify-between gap-2 mb-2">
-                  <div>
-                    <h3 className="text-white font-bold text-base">{ach.title}</h3>
-                    <p className={`text-sm ${ach.accent}`}>{ach.org}</p>
-                  </div>
-                  <span className="text-xs text-slate-500 bg-slate-800 px-2.5 py-1 rounded-full border border-slate-700">
-                    {ach.date}
-                  </span>
+            Achievements
+          </p>
+          <div className="space-y-0">
+            {achievements.map((a, i) => (
+              <motion.div
+                key={a.title}
+                initial={{ opacity: 0, y: 16 }}
+                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.5, delay: 0.2 + i * 0.1 }}
+                className="border-t py-5"
+                style={{ borderColor: "var(--border)" }}
+              >
+                <div className="flex items-start justify-between gap-4 mb-2">
+                  <p className="font-display font-bold text-base" style={{ color: "var(--text)" }}>{a.title}</p>
+                  <span className="text-xs shrink-0" style={{ color: "var(--accent)" }}>{a.year}</span>
                 </div>
-                <p className="text-slate-400 text-sm leading-relaxed mb-4">{ach.description}</p>
-                <div className="flex flex-wrap gap-2">
-                  {ach.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="px-2.5 py-1 rounded-lg bg-slate-800/80 border border-slate-700/50 text-xs text-slate-400"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </motion.div>
-        ))}
+                <p className="text-xs mb-2" style={{ color: "var(--muted)" }}>{a.org}</p>
+                <p className="text-sm leading-relaxed" style={{ color: "var(--muted)" }}>{a.desc}</p>
+              </motion.div>
+            ))}
+            <div className="border-t" style={{ borderColor: "var(--border)" }} />
+          </div>
+        </div>
       </div>
     </section>
   );

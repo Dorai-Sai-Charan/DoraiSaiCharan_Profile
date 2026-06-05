@@ -2,9 +2,8 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { HiMenuAlt3, HiX } from "react-icons/hi";
 
-const navLinks = [
+const links = [
   { label: "About", href: "#about" },
   { label: "Projects", href: "#projects" },
   { label: "Research", href: "#research" },
@@ -14,130 +13,92 @@ const navLinks = [
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState("");
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 20);
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  useEffect(() => {
-    const sections = navLinks.map((l) => l.href.replace("#", ""));
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) setActiveSection(entry.target.id);
-        });
-      },
-      { rootMargin: "-50% 0px -50% 0px" }
-    );
-    sections.forEach((id) => {
-      const el = document.getElementById(id);
-      if (el) observer.observe(el);
-    });
-    return () => observer.disconnect();
+    const fn = () => setScrolled(window.scrollY > 30);
+    window.addEventListener("scroll", fn);
+    return () => window.removeEventListener("scroll", fn);
   }, []);
 
   return (
     <>
       <motion.nav
-        initial={{ y: -80, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
+        initial={{ opacity: 0, y: -16 }}
+        animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          scrolled
-            ? "bg-[#020617]/80 backdrop-blur-xl border-b border-blue-500/10 shadow-lg shadow-blue-500/5"
-            : "bg-transparent"
+        className={`fixed top-0 inset-x-0 z-50 px-6 md:px-12 h-16 flex items-center justify-between transition-all duration-300 ${
+          scrolled ? "border-b border-white/5 bg-[#0d0d0d]/80 backdrop-blur-md" : ""
         }`}
       >
-        <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-          {/* Logo */}
-          <motion.a
-            href="#"
-            className="text-lg font-bold tracking-tight"
-            whileHover={{ scale: 1.05 }}
-          >
-            <span className="gradient-text">DSC</span>
-            <span className="text-slate-500 ml-1 text-sm font-normal">portfolio</span>
-          </motion.a>
+        {/* Logo */}
+        <a href="#" className="font-display font-bold text-lg text-cream tracking-tight">
+          DSC<span className="text-accent">.</span>
+        </a>
 
-          {/* Desktop nav */}
-          <div className="hidden md:flex items-center gap-1">
-            {navLinks.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                className={`relative px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 ${
-                  activeSection === link.href.replace("#", "")
-                    ? "text-blue-400"
-                    : "text-slate-400 hover:text-slate-200"
-                }`}
-              >
-                {activeSection === link.href.replace("#", "") && (
-                  <motion.span
-                    layoutId="nav-active"
-                    className="absolute inset-0 bg-blue-500/10 rounded-lg border border-blue-500/20"
-                    transition={{ type: "spring", bounce: 0.2, duration: 0.4 }}
-                  />
-                )}
-                <span className="relative z-10">{link.label}</span>
-              </a>
-            ))}
-          </div>
-
-          {/* CTA button */}
-          <div className="hidden md:flex items-center gap-3">
-            <a
-              href="mailto:doraisaicharan09@gmail.com"
-              className="px-4 py-2 text-sm font-semibold rounded-lg bg-blue-600 hover:bg-blue-500 text-white transition-all duration-200 hover:shadow-lg hover:shadow-blue-500/25"
+        {/* Desktop links */}
+        <div className="hidden md:flex items-center gap-8">
+          {links.map((l, i) => (
+            <motion.a
+              key={l.href}
+              href={l.href}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.1 + i * 0.07 }}
+              className="link-hover text-sm text-muted hover:text-cream transition-colors duration-200 font-display"
             >
-              Hire Me
-            </a>
-          </div>
-
-          {/* Mobile menu toggle */}
-          <button
-            className="md:hidden p-2 text-slate-400 hover:text-white transition-colors"
-            onClick={() => setMenuOpen(!menuOpen)}
-          >
-            {menuOpen ? <HiX size={24} /> : <HiMenuAlt3 size={24} />}
-          </button>
+              {l.label}
+            </motion.a>
+          ))}
         </div>
+
+        {/* Right: resume link */}
+        <div className="hidden md:block">
+          <motion.a
+            href="mailto:doraisaicharan09@gmail.com"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.5 }}
+            className="text-sm font-display font-semibold text-accent border border-accent/30 hover:border-accent hover:bg-accent hover:text-black px-4 py-1.5 rounded transition-all duration-200"
+          >
+            Hire me
+          </motion.a>
+        </div>
+
+        {/* Mobile toggle */}
+        <button
+          className="md:hidden flex flex-col gap-1.5 p-1"
+          onClick={() => setOpen((p) => !p)}
+          aria-label="Menu"
+        >
+          <span className={`block h-px w-6 bg-cream transition-all ${open ? "rotate-45 translate-y-2" : ""}`} />
+          <span className={`block h-px w-6 bg-cream transition-all ${open ? "opacity-0" : ""}`} />
+          <span className={`block h-px w-6 bg-cream transition-all ${open ? "-rotate-45 -translate-y-2" : ""}`} />
+        </button>
       </motion.nav>
 
       {/* Mobile menu */}
       <AnimatePresence>
-        {menuOpen && (
+        {open && (
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
+            initial={{ opacity: 0, y: -8 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.2 }}
-            className="fixed inset-x-0 top-16 z-40 md:hidden bg-[#0a0f1e]/95 backdrop-blur-xl border-b border-blue-500/10 py-4"
+            exit={{ opacity: 0, y: -8 }}
+            className="fixed inset-x-0 top-16 z-40 md:hidden bg-[#0d0d0d] border-b border-white/5 py-6 px-6"
           >
-            {navLinks.map((link, i) => (
+            {links.map((l, i) => (
               <motion.a
-                key={link.href}
-                href={link.href}
-                initial={{ opacity: 0, x: -20 }}
+                key={l.href}
+                href={l.href}
+                initial={{ opacity: 0, x: -10 }}
                 animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: i * 0.07 }}
-                onClick={() => setMenuOpen(false)}
-                className="block px-6 py-3 text-slate-300 hover:text-blue-400 hover:bg-blue-500/10 transition-all"
+                transition={{ delay: i * 0.05 }}
+                onClick={() => setOpen(false)}
+                className="block py-3 text-base font-display text-muted hover:text-cream border-b border-white/5 transition-colors"
               >
-                {link.label}
+                {l.label}
               </motion.a>
             ))}
-            <div className="px-6 pt-3">
-              <a
-                href="mailto:doraisaicharan09@gmail.com"
-                className="block text-center py-2.5 bg-blue-600 hover:bg-blue-500 text-white text-sm font-semibold rounded-lg transition-all"
-              >
-                Hire Me
-              </a>
-            </div>
           </motion.div>
         )}
       </AnimatePresence>
