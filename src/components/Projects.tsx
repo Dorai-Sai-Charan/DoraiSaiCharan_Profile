@@ -43,7 +43,7 @@ export default function Projects() {
   const [active, setActive] = useState<number | null>(null);
 
   return (
-    <section id="projects" className="py-24 md:py-32 px-6 md:px-12 max-w-7xl mx-auto" ref={ref}>
+    <section id="projects" className="py-24 md:py-32 px-6 md:px-14" ref={ref}>
       {/* Label */}
       <motion.div
         initial={{ opacity: 0, x: -16 }}

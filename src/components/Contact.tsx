@@ -42,7 +42,7 @@ export default function Contact() {
   const isInView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <section id="contact" className="py-24 md:py-36 px-6 md:px-12 max-w-7xl mx-auto" ref={ref}>
+    <section id="contact" className="py-24 md:py-36 px-6 md:px-14" ref={ref}>
       {/* Divider */}
       <div className="h-px w-full mb-20" style={{ background: "var(--border)" }} />
 

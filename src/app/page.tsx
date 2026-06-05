@@ -2,6 +2,7 @@ import CustomCursor from "@/components/CustomCursor";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import About from "@/components/About";
+import Timeline from "@/components/Timeline";
 import Projects from "@/components/Projects";
 import Research from "@/components/Research";
 import Skills from "@/components/Skills";
@@ -13,10 +14,11 @@ export default function Home() {
   return (
     <>
       <CustomCursor />
-      <main className="min-h-screen" style={{ background: "var(--bg)", color: "var(--text)" }}>
+      <main style={{ background: "var(--bg)", color: "var(--text)" }}>
         <Navbar />
         <Hero />
         <About />
+        <Timeline />
         <Projects />
         <Research />
         <Skills />

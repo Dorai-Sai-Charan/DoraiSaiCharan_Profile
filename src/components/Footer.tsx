@@ -3,7 +3,7 @@
 export default function Footer() {
   return (
     <footer
-      className="px-6 md:px-12 py-8 border-t flex flex-col md:flex-row items-center justify-between gap-3"
+      className="px-6 md:px-14 py-8 border-t flex flex-col md:flex-row items-center justify-between gap-3"
       style={{ borderColor: "var(--border)" }}
     >
       <p className="text-xs font-display" style={{ color: "var(--muted)" }}>

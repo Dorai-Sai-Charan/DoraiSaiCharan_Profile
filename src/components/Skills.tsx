@@ -2,129 +2,189 @@
 
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
+import {
+  SiPython, SiFastapi, SiPostgresql, SiNextdotjs, SiTypescript, SiCplusplus,
+  SiTensorflow, SiPytorch, SiDocker, SiGit, SiLinux, SiJupyter,
+  SiNumpy, SiScikitlearn, SiGithub,
+} from "react-icons/si";
+import { FaAws } from "react-icons/fa";
+import { FiDatabase, FiLink, FiCpu, FiLayers, FiMessageSquare, FiBarChart2, FiCode } from "react-icons/fi";
 
-const ROW_A = [
-  "Python", "FastAPI", "PostgreSQL", "SQLAlchemy", "REST APIs",
-  "TensorFlow", "PyTorch", "Scikit-learn", "NumPy", "Pandas",
-  "Python", "FastAPI", "PostgreSQL", "SQLAlchemy", "REST APIs",
-  "TensorFlow", "PyTorch", "Scikit-learn", "NumPy", "Pandas",
+const groups = [
+  {
+    label: "Languages",
+    items: [
+      { name: "Python",     Icon: SiPython,     color: "#3776AB" },
+      { name: "TypeScript", Icon: SiTypescript, color: "#3178C6" },
+      { name: "C++",        Icon: SiCplusplus,  color: "#00599C" },
+      { name: "SQL",        Icon: FiDatabase,   color: "#888" },
+    ],
+  },
+  {
+    label: "Backend",
+    items: [
+      { name: "FastAPI",    Icon: SiFastapi,    color: "#009688" },
+      { name: "Next.js",    Icon: SiNextdotjs,  color: "#f0f0f0" },
+      { name: "REST APIs",  Icon: FiCode,       color: "#888" },
+      { name: "JWT Auth",   Icon: FiLayers,     color: "#888" },
+    ],
+  },
+  {
+    label: "Databases",
+    items: [
+      { name: "PostgreSQL",  Icon: SiPostgresql, color: "#4169E1" },
+      { name: "SQLAlchemy",  Icon: FiDatabase,   color: "#888" },
+      { name: "Git",         Icon: SiGit,        color: "#F05032" },
+      { name: "GitHub",      Icon: SiGithub,     color: "#f0f0f0" },
+    ],
+  },
+  {
+    label: "ML & AI",
+    items: [
+      { name: "TensorFlow",   Icon: SiTensorflow,  color: "#FF6F00" },
+      { name: "PyTorch",      Icon: SiPytorch,     color: "#EE4C2C" },
+      { name: "Scikit-learn", Icon: SiScikitlearn, color: "#F7931E" },
+      { name: "NumPy",        Icon: SiNumpy,       color: "#4DABCF" },
+      { name: "Pandas",       Icon: FiBarChart2,   color: "#130754" },
+      { name: "Jupyter",      Icon: SiJupyter,     color: "#F37626" },
+    ],
+  },
+  {
+    label: "Gen AI & NLP",
+    items: [
+      { name: "LangChain",    Icon: FiLink,         color: "#888" },
+      { name: "Transformers", Icon: FiCpu,          color: "#888" },
+      { name: "RAG",          Icon: FiLayers,       color: "#888" },
+      { name: "Prompt Eng.",  Icon: FiMessageSquare, color: "#888" },
+    ],
+  },
+  {
+    label: "Cloud & Tools",
+    items: [
+      { name: "AWS EC2",  Icon: FaAws,               color: "#FF9900" },
+      { name: "Docker",   Icon: SiDocker,            color: "#2496ED" },
+      { name: "Linux",    Icon: SiLinux,             color: "#FCC624" },
+      { name: "CI/CD",    Icon: FiLayers,            color: "#888" },
+    ],
+  },
 ];
 
-const ROW_B = [
-  "LangChain", "Transformers", "RAG", "Prompt Engineering", "NLP",
-  "AWS EC2", "Git", "Linux", "JWT Auth", "Next.js", "C++", "SQL",
-  "LangChain", "Transformers", "RAG", "Prompt Engineering", "NLP",
-  "AWS EC2", "Git", "Linux", "JWT Auth", "Next.js", "C++", "SQL",
-];
+function TechCard({ name, Icon, color, delay }: { name: string; Icon: React.ElementType; color: string; delay: number }) {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true });
 
-const categories = [
-  {
-    name: "Backend & APIs",
-    items: ["Python", "FastAPI", "REST APIs", "JWT Authentication", "Next.js", "TypeScript"],
-  },
-  {
-    name: "Databases & ORM",
-    items: ["PostgreSQL", "SQLAlchemy", "Database Design", "SQL"],
-  },
-  {
-    name: "ML & AI",
-    items: ["TensorFlow", "PyTorch", "Scikit-learn", "NumPy", "Pandas", "Matplotlib"],
-  },
-  {
-    name: "Generative AI",
-    items: ["LangChain", "RAG Pipelines", "Transformers", "Prompt Engineering", "NLP"],
-  },
-  {
-    name: "Infrastructure",
-    items: ["AWS EC2", "Git / GitHub", "Linux", "CI/CD", "Docker"],
-  },
-  {
-    name: "Core CS",
-    items: ["Data Structures & Algorithms", "OOP", "Operating Systems", "Computer Networks", "Cloud Computing"],
-  },
-];
-
-function MarqueeRow({ items, reverse = false }: { items: string[]; reverse?: boolean }) {
   return (
-    <div className="marquee-outer py-3">
-      <div className={reverse ? "marquee-track-rev" : "marquee-track"}>
-        {items.map((item, i) => (
-          <span
-            key={i}
-            className={`inline-flex items-center mx-3 text-sm font-display font-medium whitespace-nowrap ${
-              i % 5 === 0 ? "text-accent" : "text-muted"
-            }`}
-          >
-            {item}
-            <span className="ml-3 opacity-30" style={{ color: "var(--muted)" }}>·</span>
-          </span>
-        ))}
-      </div>
-    </div>
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, y: 20 }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.45, delay, ease: [0.33, 1, 0.68, 1] }}
+      className="tech-card group"
+      title={name}
+    >
+      <Icon
+        size={26}
+        className="tech-icon"
+        style={{ color: "var(--text-2)" }}
+        onMouseEnter={(e: React.MouseEvent) => ((e.target as SVGElement).style.color = color)}
+        onMouseLeave={(e: React.MouseEvent) => ((e.target as SVGElement).style.color = "var(--text-2)")}
+      />
+      <span className="text-xs font-display font-semibold text-center leading-tight"
+        style={{ color: "var(--text-2)" }}>
+        {name}
+      </span>
+    </motion.div>
   );
 }
 
+/* Marquee rows */
+const ALL_TECH = [
+  "Python", "FastAPI", "PostgreSQL", "TensorFlow", "PyTorch", "Next.js",
+  "TypeScript", "LangChain", "AWS", "Docker", "Git", "Scikit-learn",
+  "Python", "FastAPI", "PostgreSQL", "TensorFlow", "PyTorch", "Next.js",
+  "TypeScript", "LangChain", "AWS", "Docker", "Git", "Scikit-learn",
+];
+const ALL_TECH2 = [
+  "NumPy", "Pandas", "Transformers", "RAG", "SQLAlchemy", "Linux",
+  "Jupyter", "C++", "REST APIs", "JWT Auth", "CI/CD", "Prompt Eng.",
+  "NumPy", "Pandas", "Transformers", "RAG", "SQLAlchemy", "Linux",
+  "Jupyter", "C++", "REST APIs", "JWT Auth", "CI/CD", "Prompt Eng.",
+];
+
 export default function Skills() {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-80px" });
+  const isInView = useInView(ref, { once: true, margin: "-60px" });
 
   return (
-    <section id="skills" className="py-24 md:py-32" ref={ref}>
+    <section id="skills" className="py-28 md:py-36" ref={ref}>
       {/* Label */}
-      <div className="px-6 md:px-12 max-w-7xl mx-auto">
+      <div className="px-6 md:px-14">
         <motion.div
           initial={{ opacity: 0, x: -16 }}
           animate={isInView ? { opacity: 1, x: 0 } : {}}
           transition={{ duration: 0.5 }}
-          className="flex items-center gap-4 mb-16"
+          className="flex items-center gap-4 mb-20"
         >
-          <span className="section-label">04 — Skills</span>
+          <span className="section-label">05 — Tech Stack</span>
           <span className="flex-1 h-px" style={{ background: "var(--border)" }} />
         </motion.div>
       </div>
 
-      {/* Marquee rows */}
+      {/* Marquee */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={isInView ? { opacity: 1 } : {}}
-        transition={{ duration: 0.6, delay: 0.2 }}
-        className="border-t border-b py-2"
+        transition={{ duration: 0.6, delay: 0.1 }}
+        className="border-y py-3 mb-20"
         style={{ borderColor: "var(--border)" }}
       >
-        <MarqueeRow items={ROW_A} />
-        <MarqueeRow items={ROW_B} reverse />
+        <div className="marquee-outer py-2">
+          <div className="marquee-track">
+            {ALL_TECH.map((t, i) => (
+              <span key={i} className="inline-flex items-center mx-4 text-sm font-display"
+                style={{ color: i % 4 === 0 ? "var(--accent)" : "var(--text-2)" }}>
+                {t}<span className="ml-4 opacity-20">·</span>
+              </span>
+            ))}
+          </div>
+        </div>
+        <div className="marquee-outer py-2">
+          <div className="marquee-track-rev">
+            {ALL_TECH2.map((t, i) => (
+              <span key={i} className="inline-flex items-center mx-4 text-sm font-display"
+                style={{ color: i % 5 === 0 ? "var(--accent)" : "var(--text-2)" }}>
+                {t}<span className="ml-4 opacity-20">·</span>
+              </span>
+            ))}
+          </div>
+        </div>
       </motion.div>
 
-      {/* Category grid */}
-      <div className="px-6 md:px-12 max-w-7xl mx-auto mt-16">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {categories.map((cat, i) => (
-            <motion.div
-              key={cat.name}
-              initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, delay: 0.3 + i * 0.08 }}
-            >
-              <p
-                className="font-display font-semibold text-xs tracking-widest uppercase mb-4"
-                style={{ color: "var(--accent)" }}
-              >
-                {cat.name}
-              </p>
-              <div className="flex flex-wrap gap-2">
-                {cat.items.map((item) => (
-                  <motion.span
-                    key={item}
-                    whileHover={{ borderColor: "rgba(200,255,0,0.4)", color: "var(--text)" }}
-                    className="pill transition-all duration-150"
-                  >
-                    {item}
-                  </motion.span>
-                ))}
-              </div>
-            </motion.div>
-          ))}
-        </div>
+      {/* Icon grid by category */}
+      <div className="px-6 md:px-14 space-y-14">
+        {groups.map((group, gi) => (
+          <motion.div key={group.label}
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.5, delay: 0.2 + gi * 0.07 }}
+          >
+            <p className="font-display font-bold text-xs tracking-widest uppercase mb-5"
+              style={{ color: "var(--accent)" }}>
+              {group.label}
+            </p>
+            <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 gap-3">
+              {group.items.map((item, ii) => (
+                <TechCard
+                  key={item.name}
+                  name={item.name}
+                  Icon={item.Icon}
+                  color={item.color}
+                  delay={0.25 + gi * 0.05 + ii * 0.04}
+                />
+              ))}
+            </div>
+          </motion.div>
+        ))}
       </div>
     </section>
   );

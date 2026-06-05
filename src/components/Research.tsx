@@ -33,7 +33,7 @@ export default function Research() {
   const isInView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <section id="research" className="py-24 md:py-32 px-6 md:px-12 max-w-7xl mx-auto" ref={ref}>
+    <section id="research" className="py-24 md:py-32 px-6 md:px-14" ref={ref}>
       {/* Label */}
       <motion.div
         initial={{ opacity: 0, x: -16 }}
