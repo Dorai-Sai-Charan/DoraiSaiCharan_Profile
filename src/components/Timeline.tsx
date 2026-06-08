@@ -1,28 +1,30 @@
 "use client";
 
 import { useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import { motion, useInView, useScroll, useTransform } from "framer-motion";
 import { HiAcademicCap } from "react-icons/hi";
-import { FiBookOpen, FiAward } from "react-icons/fi";
+import { FiBookOpen, FiAward, FiBriefcase } from "react-icons/fi";
 
 const items = [
   {
-    year: "2022 — Present",
+    year: "2025 — Present",
+    title: "Software Engineering Intern",
+    subtitle: "Your Company · Bengaluru",
+    detail: "Replace with your actual internship company and role",
+    note: "Working on: [describe what you're building] — update this with your actual internship details",
+    Icon: FiBriefcase,
+    accent: true,
+    tag: "Current",
+  },
+  {
+    year: "2022 — 2025",
     title: "Amrita Vishwa Vidyapeetham",
     subtitle: "B.Tech Computer Science with Artificial Intelligence",
     detail: "8.69 CGPA · Bengaluru, Karnataka",
     note: "Coursework: ML, Computer Vision, Cloud Computing, DBMS, OS, Computer Networks",
     Icon: HiAcademicCap,
-    accent: true,
-  },
-  {
-    year: "Jul 2025",
-    title: "DevOps Bootcamp",
-    subtitle: "Amrita School of Computing, Bengaluru",
-    detail: "CI/CD Pipelines · DevOps Lifecycle · Monitoring Dashboards",
-    note: "Hands-on: Jenkins, GitHub Actions, BI dashboards, automation scripts",
-    Icon: FiAward,
     accent: false,
+    tag: "Degree",
   },
   {
     year: "2025",
@@ -32,6 +34,17 @@ const items = [
     note: "Topics: Load Balancing (RL), Solar Fault Detection (CNN), Gesture Recognition (ML)",
     Icon: FiBookOpen,
     accent: false,
+    tag: "Research",
+  },
+  {
+    year: "Jul 2025",
+    title: "DevOps Bootcamp",
+    subtitle: "Amrita School of Computing, Bengaluru",
+    detail: "CI/CD Pipelines · DevOps Lifecycle · Monitoring Dashboards",
+    note: "Hands-on: Jenkins, GitHub Actions, BI dashboards, automation scripts",
+    Icon: FiAward,
+    accent: false,
+    tag: "Training",
   },
   {
     year: "2020 — 2022",
@@ -41,21 +54,19 @@ const items = [
     note: "Stream: Mathematics, Physics, Chemistry",
     Icon: HiAcademicCap,
     accent: false,
-  },
-  {
-    year: "2020",
-    title: "Montessori Indus School",
-    subtitle: "Secondary Education",
-    detail: "90% · Kurnool, Andhra Pradesh",
-    note: "",
-    Icon: HiAcademicCap,
-    accent: false,
+    tag: "Education",
   },
 ];
 
 export default function Timeline() {
-  const ref = useRef(null);
+  const ref = useRef<HTMLElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-60px" });
+
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start 0.85", "end 0.55"],
+  });
+  const lineHeight = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
 
   return (
     <section id="timeline" className="py-28 md:py-36 px-6 md:px-14" ref={ref}>
@@ -66,19 +77,22 @@ export default function Timeline() {
         transition={{ duration: 0.5 }}
         className="flex items-center gap-4 mb-20"
       >
-        <span className="section-label">02 — Education &amp; Journey</span>
+        <span className="section-label">03 — Journey</span>
         <span className="flex-1 h-px" style={{ background: "var(--border)" }} />
       </motion.div>
 
-      {/* Timeline container */}
       <div className="relative max-w-2xl">
-        {/* Vertical line */}
+        {/* Track line (static) */}
+        <div className="absolute left-0 top-0 bottom-0 w-px" style={{ background: "var(--border)" }} />
+
+        {/* Tracing beam (scroll-synced) */}
         <motion.div
-          initial={{ scaleY: 0, originY: 0 }}
-          animate={isInView ? { scaleY: 1 } : {}}
-          transition={{ duration: 1.2, delay: 0.2, ease: [0.33, 1, 0.68, 1] }}
-          className="absolute left-0 top-0 bottom-0 w-px"
-          style={{ background: "var(--border)", transformOrigin: "top" }}
+          className="absolute left-0 top-0 w-px origin-top"
+          style={{
+            height: lineHeight,
+            background: "linear-gradient(180deg, var(--accent) 0%, rgba(34,211,238,0.3) 100%)",
+            boxShadow: "0 0 8px rgba(34,211,238,0.4)",
+          }}
         />
 
         <div className="space-y-0">
@@ -86,9 +100,9 @@ export default function Timeline() {
             <motion.div
               key={item.title}
               className="timeline-item relative pl-10 pb-12 group"
-              initial={{ opacity: 0, x: -20 }}
+              initial={{ opacity: 0, x: -24 }}
               animate={isInView ? { opacity: 1, x: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.3 + i * 0.12, ease: [0.33, 1, 0.68, 1] }}
+              transition={{ duration: 0.55, delay: 0.25 + i * 0.1, ease: [0.33, 1, 0.68, 1] }}
             >
               {/* Dot */}
               <div
@@ -97,25 +111,37 @@ export default function Timeline() {
                   top: "4px",
                   borderColor: item.accent ? "var(--accent)" : "var(--border-strong)",
                   background: item.accent ? "var(--accent)" : "var(--bg)",
+                  boxShadow: item.accent ? "0 0 10px rgba(34,211,238,0.5)" : "none",
                 }}
               />
 
-              {/* Content */}
               <div className="pt-0">
-                {/* Year */}
-                <span
-                  className="font-display font-bold text-xs tracking-wider uppercase mb-2 block"
-                  style={{ color: item.accent ? "var(--accent)" : "var(--text-2)" }}
-                >
-                  {item.year}
-                </span>
+                {/* Year + tag row */}
+                <div className="flex items-center gap-3 mb-2">
+                  <span
+                    className="font-display font-bold text-xs tracking-wider uppercase"
+                    style={{ color: item.accent ? "var(--accent)" : "var(--muted)" }}
+                  >
+                    {item.year}
+                  </span>
+                  <span
+                    className="text-[10px] font-display font-bold tracking-widest uppercase px-2 py-0.5 rounded-full border"
+                    style={{
+                      borderColor: item.accent ? "var(--accent-border)" : "var(--border)",
+                      color: item.accent ? "var(--accent)" : "var(--muted)",
+                      background: item.accent ? "var(--accent-dim)" : "transparent",
+                    }}
+                  >
+                    {item.tag}
+                  </span>
+                </div>
 
                 {/* Title + icon */}
                 <div className="flex items-start gap-3 mb-1.5">
                   <item.Icon
                     size={17}
                     className="mt-0.5 shrink-0"
-                    style={{ color: item.accent ? "var(--accent)" : "var(--text-2)" }}
+                    style={{ color: item.accent ? "var(--accent)" : "var(--muted)" }}
                   />
                   <h3
                     className="font-display font-bold text-base md:text-lg leading-tight"
@@ -131,13 +157,13 @@ export default function Timeline() {
 
                 <p
                   className="text-xs font-display font-semibold mb-2 ml-7"
-                  style={{ color: item.accent ? "var(--accent)" : "var(--text-2)" }}
+                  style={{ color: item.accent ? "var(--accent)" : "var(--muted)" }}
                 >
                   {item.detail}
                 </p>
 
                 {item.note && (
-                  <p className="text-xs leading-relaxed ml-7" style={{ color: "rgba(136,136,136,0.7)" }}>
+                  <p className="text-xs leading-relaxed ml-7" style={{ color: "var(--muted)" }}>
                     {item.note}
                   </p>
                 )}

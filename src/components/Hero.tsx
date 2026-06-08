@@ -1,13 +1,12 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { FiGithub, FiLinkedin, FiMail, FiArrowDownRight, FiDownload } from "react-icons/fi";
-import Image from "next/image";
 
-function SplitText({ text, delay = 0, className = "" }: { text: string; delay?: number; className?: string }) {
+function SplitText({ text, delay = 0 }: { text: string; delay?: number }) {
   return (
-    <span className={`inline-flex ${className}`} style={{ overflow: "hidden" }}>
+    <span className="inline-flex" style={{ overflow: "hidden" }}>
       {text.split("").map((ch, i) => (
         <motion.span
           key={i}
@@ -24,6 +23,34 @@ function SplitText({ text, delay = 0, className = "" }: { text: string; delay?: 
   );
 }
 
+const ROLES = ["AI Engineer", "ML Researcher", "Backend Engineer", "3× IEEE Author"];
+
+function FlipWords({ words }: { words: string[] }) {
+  const [idx, setIdx] = useState(0);
+  useEffect(() => {
+    const t = setInterval(() => setIdx(i => (i + 1) % words.length), 2600);
+    return () => clearInterval(t);
+  }, [words.length]);
+
+  return (
+    <span style={{ display: "inline-block", minWidth: "14ch", position: "relative" }}>
+      <AnimatePresence mode="wait">
+        <motion.span
+          key={words[idx]}
+          initial={{ opacity: 0, y: 20, filter: "blur(8px)" }}
+          animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+          exit={{ opacity: 0, y: -16, filter: "blur(8px)" }}
+          transition={{ duration: 0.42, ease: [0.33, 1, 0.68, 1] }}
+          className="inline-block font-display font-semibold"
+          style={{ color: "var(--accent)" }}
+        >
+          {words[idx]}
+        </motion.span>
+      </AnimatePresence>
+    </span>
+  );
+}
+
 export default function Hero() {
   const [go, setGo] = useState(false);
   useEffect(() => { const t = setTimeout(() => setGo(true), 80); return () => clearTimeout(t); }, []);
@@ -31,17 +58,42 @@ export default function Hero() {
   return (
     <section className="relative min-h-screen flex flex-col pt-20 pb-16 px-6 md:px-14 overflow-hidden">
 
-      {/* Subtle glow */}
-      <div aria-hidden className="pointer-events-none absolute top-1/3 left-1/4 w-[500px] h-[500px] rounded-full"
-        style={{ background: "radial-gradient(circle, rgba(124,111,247,0.06) 0%, transparent 70%)" }} />
+      {/* ── Background beams ── */}
+      <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.8, duration: 2 }}
+          style={{
+            position: "absolute", top: "-15%", left: "18%",
+            width: "2px", height: "75vh",
+            background: "linear-gradient(180deg, transparent 0%, rgba(34,211,238,0.4) 50%, transparent 100%)",
+            transform: "rotate(-38deg)", filter: "blur(1px)",
+          }} />
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.1, duration: 2 }}
+          style={{
+            position: "absolute", top: "-5%", left: "52%",
+            width: "1px", height: "60vh",
+            background: "linear-gradient(180deg, transparent 0%, rgba(34,211,238,0.22) 50%, transparent 100%)",
+            transform: "rotate(-22deg)", filter: "blur(1px)",
+          }} />
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.4, duration: 2 }}
+          style={{
+            position: "absolute", top: "8%", right: "22%",
+            width: "1px", height: "50vh",
+            background: "linear-gradient(180deg, transparent 0%, rgba(34,211,238,0.16) 50%, transparent 100%)",
+            transform: "rotate(18deg)", filter: "blur(1px)",
+          }} />
+        {/* Radial ambient glow */}
+        <div style={{
+          position: "absolute", top: "5%", left: "0%",
+          width: 700, height: 700, borderRadius: "50%",
+          background: "radial-gradient(circle, rgba(34,211,238,0.05) 0%, transparent 65%)",
+        }} />
+      </div>
 
-      <div className="flex-1 flex flex-col justify-center">
-        {/* ── Two-column: name left, avatar right ── */}
+      <div className="flex-1 flex flex-col justify-center relative z-10">
         <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-10 lg:gap-6">
 
           {/* Left — name + tagline */}
           <div className="flex-1">
-            {/* Availability badge */}
             {go && (
               <motion.div
                 initial={{ opacity: 0, y: -10 }}
@@ -57,7 +109,6 @@ export default function Hero() {
               </motion.div>
             )}
 
-            {/* Name — character split */}
             <div className="font-display font-extrabold leading-[0.9] tracking-tight mb-2 select-none"
               style={{ fontSize: "clamp(3rem, 10vw, 9rem)", color: "var(--text)" }}>
               {go && <SplitText text="DORAI SAI" delay={0.1} />}
@@ -81,18 +132,17 @@ export default function Hero() {
               )}
             </div>
 
-            {/* Role — large and visible */}
-            <motion.p
+            {/* Flip words role */}
+            <motion.div
               initial={{ opacity: 0, y: 14 }}
               animate={go ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: 0.75, duration: 0.6 }}
-              className="font-display font-semibold mb-3"
-              style={{ fontSize: "clamp(1.1rem, 2.2vw, 1.6rem)", color: "var(--text)" }}
+              className="mb-3 flex items-baseline gap-0"
+              style={{ fontSize: "clamp(1.1rem, 2.2vw, 1.6rem)", color: "var(--text-2)" }}
             >
-              AI &amp; Backend Engineer
-            </motion.p>
+              <FlipWords words={ROLES} />
+            </motion.div>
 
-            {/* Bio line */}
             <motion.p
               initial={{ opacity: 0, y: 12 }}
               animate={go ? { opacity: 1, y: 0 } : {}}
@@ -100,11 +150,10 @@ export default function Hero() {
               className="text-base leading-relaxed max-w-xl mb-8"
               style={{ color: "var(--text-2)" }}
             >
-              Building intelligent, scalable systems at the intersection of AI and backend.
+              Building AI systems from IEEE research to production — FastAPI backends, PyTorch models, AWS infrastructure.{" "}
               3× Published Researcher · Amrita Vishwa Vidyapeetham, Bengaluru.
             </motion.p>
 
-            {/* CTA row */}
             <motion.div
               initial={{ opacity: 0, y: 12 }}
               animate={go ? { opacity: 1, y: 0 } : {}}
@@ -113,8 +162,8 @@ export default function Hero() {
             >
               <a href="#projects"
                 className="px-6 py-3 rounded-lg font-display font-semibold text-sm transition-all duration-200"
-                style={{ background: "var(--accent)", color: "#fff" }}
-                onMouseEnter={e => (e.currentTarget.style.opacity = "0.88")}
+                style={{ background: "var(--accent)", color: "#09090b", fontWeight: 700 }}
+                onMouseEnter={e => (e.currentTarget.style.opacity = "0.85")}
                 onMouseLeave={e => (e.currentTarget.style.opacity = "1")}
               >
                 View Projects
@@ -127,7 +176,7 @@ export default function Hero() {
               >
                 Contact Me
               </a>
-              {/* Place your resume at public/resume.pdf */}
+              {/* Place resume at public/resume.pdf */}
               <a href="/resume.pdf" download="Dorai_Sai_Charan_Resume.pdf"
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-lg font-display font-semibold text-sm border transition-all duration-200"
                 style={{ borderColor: "var(--accent-border)", color: "var(--accent)" }}
@@ -139,7 +188,6 @@ export default function Hero() {
               </a>
             </motion.div>
 
-            {/* Socials */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={go ? { opacity: 1 } : {}}
@@ -152,9 +200,10 @@ export default function Hero() {
                 { href: "mailto:doraisaicharan09@gmail.com", Icon: FiMail },
               ].map(({ href, Icon }) => (
                 <motion.a key={href} href={href} target="_blank" rel="noopener noreferrer"
-                  whileHover={{ y: -2, color: "var(--accent)" }}
-                  style={{ color: "var(--text-2)" }}
-                  className="transition-colors"
+                  whileHover={{ y: -3 }}
+                  style={{ color: "var(--text-2)", transition: "color 0.2s" }}
+                  onMouseEnter={e => (e.currentTarget.style.color = "var(--accent)")}
+                  onMouseLeave={e => (e.currentTarget.style.color = "var(--text-2)")}
                 >
                   <Icon size={20} />
                 </motion.a>
@@ -169,28 +218,24 @@ export default function Hero() {
             transition={{ delay: 0.6, duration: 0.7, ease: [0.33, 1, 0.68, 1] }}
             className="flex flex-col items-center gap-4 shrink-0"
           >
-            {/* Avatar circle */}
             <div className="relative avatar-ring rounded-full overflow-hidden"
               style={{ width: 220, height: 220 }}>
               {/*
-                TO REPLACE WITH YOUR PHOTO:
-                  <Image src="/avatar.jpg" alt="Dorai Sai Charan" fill className="object-cover" />
-                Place your image at: public/avatar.jpg
+                TO REPLACE: drop your photo at public/avatar.jpg then use:
+                <Image src="/avatar.jpg" alt="Dorai Sai Charan" fill className="object-cover" />
               */}
               <div className="absolute inset-0 flex flex-col items-center justify-center"
-                style={{ background: "linear-gradient(135deg, #1a1430 0%, #0f0c1a 100%)" }}>
-                {/* Silhouette */}
+                style={{ background: "linear-gradient(135deg, #0d1f22 0%, #061214 100%)" }}>
                 <svg viewBox="0 0 120 120" className="w-full h-full" fill="none">
-                  <circle cx="60" cy="42" r="24" fill="rgba(124,111,247,0.2)" />
-                  <ellipse cx="60" cy="95" rx="38" ry="26" fill="rgba(124,111,247,0.15)" />
-                  <circle cx="60" cy="42" r="22" fill="rgba(124,111,247,0.1)" stroke="rgba(124,111,247,0.3)" strokeWidth="1" />
+                  <circle cx="60" cy="42" r="24" fill="rgba(34,211,238,0.15)" />
+                  <ellipse cx="60" cy="95" rx="38" ry="26" fill="rgba(34,211,238,0.1)" />
+                  <circle cx="60" cy="42" r="22" fill="rgba(34,211,238,0.08)" stroke="rgba(34,211,238,0.28)" strokeWidth="1" />
                 </svg>
                 <span className="absolute font-display font-bold text-xl"
-                  style={{ color: "rgba(124,111,247,0.6)", bottom: "28px" }}>DSC</span>
+                  style={{ color: "rgba(34,211,238,0.65)", bottom: "28px" }}>DSC</span>
               </div>
-              {/* Accent ring overlay */}
               <div className="absolute inset-0 rounded-full"
-                style={{ boxShadow: "inset 0 0 0 1.5px rgba(124,111,247,0.3)" }} />
+                style={{ boxShadow: "inset 0 0 0 1.5px rgba(34,211,238,0.22)" }} />
             </div>
 
             <div className="text-center">
@@ -210,7 +255,7 @@ export default function Hero() {
         initial={{ opacity: 0 }}
         animate={go ? { opacity: 1 } : {}}
         transition={{ delay: 1.2, duration: 0.5 }}
-        className="flex items-center justify-between pt-8 border-t"
+        className="relative z-10 flex items-center justify-between pt-8 border-t"
         style={{ borderColor: "var(--border)" }}
       >
         <div className="flex flex-wrap gap-2">
@@ -218,8 +263,9 @@ export default function Hero() {
             <span key={t} className="pill">{t}</span>
           ))}
         </div>
-        <a href="#about" className="hidden md:flex items-center gap-1.5 text-xs font-display font-semibold tracking-widest uppercase transition-colors"
-          style={{ color: "var(--text-2)" }}
+        <a href="#about"
+          className="hidden md:flex items-center gap-1.5 text-xs font-display font-semibold tracking-widest uppercase"
+          style={{ color: "var(--text-2)", transition: "color 0.2s" }}
           onMouseEnter={e => (e.currentTarget.style.color = "var(--accent)")}
           onMouseLeave={e => (e.currentTarget.style.color = "var(--text-2)")}
         >

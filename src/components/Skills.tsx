@@ -76,9 +76,9 @@ function TechCard({ name, Icon, color, delay }: { name: string; Icon: React.Elem
   return (
     <motion.div
       ref={ref}
-      initial={{ opacity: 0, y: 20 }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.45, delay, ease: [0.33, 1, 0.68, 1] }}
+      initial={{ opacity: 0, scale: 0.85, y: 16 }}
+      animate={inView ? { opacity: 1, scale: 1, y: 0 } : {}}
+      transition={{ duration: 0.4, delay, ease: [0.33, 1, 0.68, 1] }}
       className="tech-card group"
       title={name}
     >
@@ -125,7 +125,7 @@ export default function Skills() {
           transition={{ duration: 0.5 }}
           className="flex items-center gap-4 mb-20"
         >
-          <span className="section-label">05 — Tech Stack</span>
+          <span className="section-label">06 — Tech Stack</span>
           <span className="flex-1 h-px" style={{ background: "var(--border)" }} />
         </motion.div>
       </div>
