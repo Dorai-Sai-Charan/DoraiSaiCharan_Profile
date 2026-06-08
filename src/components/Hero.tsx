@@ -33,7 +33,7 @@ function FlipWords({ words }: { words: string[] }) {
   }, [words.length]);
 
   return (
-    <span style={{ display: "inline-block", minWidth: "14ch", position: "relative" }}>
+    <span style={{ display: "inline-block", minWidth: "15ch" }}>
       <AnimatePresence mode="wait">
         <motion.span
           key={words[idx]}
@@ -58,37 +58,7 @@ export default function Hero() {
   return (
     <section className="relative min-h-screen flex flex-col pt-20 pb-16 px-6 md:px-14 overflow-hidden">
 
-      {/* ── Background beams ── */}
-      <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.8, duration: 2 }}
-          style={{
-            position: "absolute", top: "-15%", left: "18%",
-            width: "2px", height: "75vh",
-            background: "linear-gradient(180deg, transparent 0%, rgba(34,211,238,0.4) 50%, transparent 100%)",
-            transform: "rotate(-38deg)", filter: "blur(1px)",
-          }} />
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.1, duration: 2 }}
-          style={{
-            position: "absolute", top: "-5%", left: "52%",
-            width: "1px", height: "60vh",
-            background: "linear-gradient(180deg, transparent 0%, rgba(34,211,238,0.22) 50%, transparent 100%)",
-            transform: "rotate(-22deg)", filter: "blur(1px)",
-          }} />
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.4, duration: 2 }}
-          style={{
-            position: "absolute", top: "8%", right: "22%",
-            width: "1px", height: "50vh",
-            background: "linear-gradient(180deg, transparent 0%, rgba(34,211,238,0.16) 50%, transparent 100%)",
-            transform: "rotate(18deg)", filter: "blur(1px)",
-          }} />
-        {/* Radial ambient glow */}
-        <div style={{
-          position: "absolute", top: "5%", left: "0%",
-          width: 700, height: 700, borderRadius: "50%",
-          background: "radial-gradient(circle, rgba(34,211,238,0.05) 0%, transparent 65%)",
-        }} />
-      </div>
-
+      {/* ── Content ── */}
       <div className="flex-1 flex flex-col justify-center relative z-10">
         <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-10 lg:gap-6">
 
@@ -132,12 +102,11 @@ export default function Hero() {
               )}
             </div>
 
-            {/* Flip words role */}
             <motion.div
               initial={{ opacity: 0, y: 14 }}
               animate={go ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: 0.75, duration: 0.6 }}
-              className="mb-3 flex items-baseline gap-0"
+              className="mb-3 flex items-baseline"
               style={{ fontSize: "clamp(1.1rem, 2.2vw, 1.6rem)", color: "var(--text-2)" }}
             >
               <FlipWords words={ROLES} />
@@ -150,8 +119,9 @@ export default function Hero() {
               className="text-base leading-relaxed max-w-xl mb-8"
               style={{ color: "var(--text-2)" }}
             >
-              Building AI systems from IEEE research to production — FastAPI backends, PyTorch models, AWS infrastructure.{" "}
-              3× Published Researcher · Amrita Vishwa Vidyapeetham, Bengaluru.
+              I turn IEEE research into production systems — FastAPI backends, PyTorch models, AWS infrastructure.
+              Currently interning while wrapping up my BTech in CS+AI.{" "}
+              <span style={{ color: "var(--text)" }}>3× published researcher</span> · Amrita VV, Bengaluru.
             </motion.p>
 
             <motion.div
@@ -160,10 +130,11 @@ export default function Hero() {
               transition={{ delay: 0.95, duration: 0.5 }}
               className="flex flex-wrap items-center gap-3 mb-10"
             >
+              {/* Primary CTA — animated gradient border */}
               <a href="#projects"
-                className="px-6 py-3 rounded-lg font-display font-semibold text-sm transition-all duration-200"
-                style={{ background: "var(--accent)", color: "#09090b", fontWeight: 700 }}
-                onMouseEnter={e => (e.currentTarget.style.opacity = "0.85")}
+                className="animated-border px-6 py-3 rounded-lg font-display font-bold text-sm transition-opacity duration-200"
+                style={{ color: "var(--accent)" }}
+                onMouseEnter={e => (e.currentTarget.style.opacity = "0.82")}
                 onMouseLeave={e => (e.currentTarget.style.opacity = "1")}
               >
                 View Projects
@@ -180,8 +151,8 @@ export default function Hero() {
               <a href="/resume.pdf" download="Dorai_Sai_Charan_Resume.pdf"
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-lg font-display font-semibold text-sm border transition-all duration-200"
                 style={{ borderColor: "var(--accent-border)", color: "var(--accent)" }}
-                onMouseEnter={e => { e.currentTarget.style.background = "var(--accent-dim)"; e.currentTarget.style.borderColor = "var(--accent)"; }}
-                onMouseLeave={e => { e.currentTarget.style.background = ""; e.currentTarget.style.borderColor = "var(--accent-border)"; }}
+                onMouseEnter={e => { e.currentTarget.style.background = "var(--accent-dim)"; }}
+                onMouseLeave={e => { e.currentTarget.style.background = ""; }}
               >
                 <FiDownload size={14} />
                 Resume
@@ -221,7 +192,7 @@ export default function Hero() {
             <div className="relative avatar-ring rounded-full overflow-hidden"
               style={{ width: 220, height: 220 }}>
               {/*
-                TO REPLACE: drop your photo at public/avatar.jpg then use:
+                Replace with your photo: drop it at public/avatar.jpg and use:
                 <Image src="/avatar.jpg" alt="Dorai Sai Charan" fill className="object-cover" />
               */}
               <div className="absolute inset-0 flex flex-col items-center justify-center"
@@ -237,14 +208,9 @@ export default function Hero() {
               <div className="absolute inset-0 rounded-full"
                 style={{ boxShadow: "inset 0 0 0 1.5px rgba(34,211,238,0.22)" }} />
             </div>
-
             <div className="text-center">
-              <p className="font-display font-semibold text-sm" style={{ color: "var(--text)" }}>
-                Dorai Sai Charan
-              </p>
-              <p className="text-xs mt-0.5" style={{ color: "var(--text-2)" }}>
-                Bengaluru, India
-              </p>
+              <p className="font-display font-semibold text-sm" style={{ color: "var(--text)" }}>Dorai Sai Charan</p>
+              <p className="text-xs mt-0.5" style={{ color: "var(--text-2)" }}>Bengaluru, India</p>
             </div>
           </motion.div>
         </div>

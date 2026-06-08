@@ -54,8 +54,13 @@ export default function Research() {
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.1 + i * 0.12, ease: [0.33, 1, 0.68, 1] }}
-            className="group border-t py-8 flex flex-col md:flex-row md:items-start gap-4 md:gap-8 hover:bg-white/[0.01] transition-colors"
+            className="spotlight-card group border-t py-8 flex flex-col md:flex-row md:items-start gap-4 md:gap-8 transition-colors rounded-lg px-2 -mx-2"
             style={{ borderColor: "var(--border)" }}
+            onMouseMove={(e) => {
+              const rect = e.currentTarget.getBoundingClientRect();
+              e.currentTarget.style.setProperty("--mouse-x", `${e.clientX - rect.left}px`);
+              e.currentTarget.style.setProperty("--mouse-y", `${e.clientY - rect.top}px`);
+            }}
           >
             {/* Year + venue */}
             <div className="flex md:flex-col gap-3 md:gap-1 shrink-0 md:w-28">

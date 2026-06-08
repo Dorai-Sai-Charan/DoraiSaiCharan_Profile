@@ -71,7 +71,66 @@ body::after {
   z-index: 99000;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
   background-repeat: repeat;
-  opacity: 0.025;
+  opacity: 0.032;
+}
+
+/* ─── AURORA KEYFRAMES ───────────────────────────── */
+@keyframes aurora-1 {
+  0%,100% { transform: translate(0%, 0%) scale(1); }
+  25%     { transform: translate(8%, -6%) scale(1.08); }
+  50%     { transform: translate(-5%, 8%) scale(0.94); }
+  75%     { transform: translate(6%, 4%) scale(1.04); }
+}
+@keyframes aurora-2 {
+  0%,100% { transform: translate(0%, 0%) scale(1); }
+  33%     { transform: translate(-10%, 5%) scale(1.1); }
+  66%     { transform: translate(7%, -8%) scale(0.9); }
+}
+@keyframes aurora-3 {
+  0%,100% { transform: translate(0%, 0%) scale(1); }
+  50%     { transform: translate(4%, -10%) scale(1.08); }
+}
+@keyframes aurora-rotate {
+  to { transform: rotate(360deg); }
+}
+
+/* ─── SPOTLIGHT CARD ─────────────────────────────── */
+.spotlight-card { position: relative; overflow: hidden; }
+.spotlight-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    380px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    rgba(34, 211, 238, 0.08),
+    transparent 65%
+  );
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  pointer-events: none;
+  z-index: 1;
+}
+.spotlight-card:hover::before { opacity: 1; }
+.spotlight-card > * { position: relative; z-index: 2; }
+
+/* ─── ANIMATED GRADIENT BORDER ───────────────────── */
+@property --border-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+@keyframes border-spin { to { --border-angle: 360deg; } }
+.animated-border {
+  border: 1.5px solid transparent;
+  background:
+    linear-gradient(var(--bg), var(--bg)) padding-box,
+    conic-gradient(from var(--border-angle), #22d3ee 0%, #818cf8 35%, #a78bfa 55%, #22d3ee 100%) border-box;
+  animation: border-spin 4s linear infinite;
+}
+/* Firefox fallback — static accent border */
+@supports not (background: conic-gradient(from 0deg, red, blue)) {
+  .animated-border { border-color: var(--accent-border); }
 }
 
 /* ─── SCROLLBAR ──────────────────────────────────── */

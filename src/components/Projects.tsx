@@ -1,69 +1,150 @@
 "use client";
 
-import { useRef, useState } from "react";
-import { motion, useInView, AnimatePresence } from "framer-motion";
-import { FiArrowUpRight, FiExternalLink } from "react-icons/fi";
+import { useRef } from "react";
+import { motion, useInView } from "framer-motion";
+import { FiExternalLink, FiArrowUpRight } from "react-icons/fi";
 
 const projects = [
   {
     num: "01",
     title: "FINARC",
-    sub: "Financial Intelligence & Transaction Management Platform",
+    sub: "Financial Intelligence Platform",
     stack: ["Python", "FastAPI", "Next.js", "PostgreSQL", "JWT"],
     description:
-      "Financial data is fragmented across accounts. FINARC is a unified platform with 30+ REST endpoints handling transaction processing, multi-account ledger management, and real-time net worth analytics — built on FastAPI + PostgreSQL with SQLAlchemy ORM and JWT auth.",
-    highlights: ["30+ REST API endpoints", "Real-time net worth tracking", "JWT auth & role-based access"],
+      "Most finance apps fragment your data. FINARC unifies it — 30+ REST endpoints for transactions, multi-account ledger management, and real-time net-worth analytics. JWT auth, SQLAlchemy ORM, and a Next.js dashboard.",
+    highlights: ["30+ REST endpoints", "Real-time net worth tracking", "JWT role-based auth"],
     github: "https://github.com/Dorai-Sai-Charan",
+    /* Visual SVG accent color */
+    hue: "#22d3ee",
+    Visual: () => (
+      <svg viewBox="0 0 280 160" fill="none" className="w-full h-full">
+        {/* Bar chart */}
+        {[40, 70, 50, 90, 65, 80, 55].map((h, i) => (
+          <rect key={i} x={28 + i * 34} y={130 - h} width={18} height={h}
+            fill="rgba(34,211,238,0.18)" rx={3} />
+        ))}
+        {[40, 70, 50, 90, 65, 80, 55].map((h, i) => (
+          <rect key={`t${i}`} x={28 + i * 34} y={130 - h} width={18} height={3}
+            fill="rgba(34,211,238,0.6)" rx={1} />
+        ))}
+        {/* Trend line */}
+        <polyline points="37,90 71,60 105,80 139,40 173,55 207,45 241,70"
+          stroke="rgba(34,211,238,0.4)" strokeWidth="1.5" fill="none" strokeDasharray="4 3" />
+        <circle cx="139" cy="40" r="4" fill="rgba(34,211,238,0.8)" />
+        {/* Grid lines */}
+        {[40, 80, 120].map(y => (
+          <line key={y} x1="20" y1={y} x2="260" y2={y}
+            stroke="rgba(255,255,255,0.04)" strokeWidth="1" />
+        ))}
+      </svg>
+    ),
   },
   {
     num: "02",
     title: "AI Load Balancer",
-    sub: "Cloud Workload Distribution via Reinforcement Learning",
+    sub: "Reinforcement Learning for Cloud Workloads",
     stack: ["Python", "TensorFlow", "AWS EC2", "DDPG", "Docker"],
     description:
-      "Instead of static round-robin routing, this system uses a DDPG reinforcement learning agent to dynamically distribute tasks across a 5-node AWS EC2 cluster based on real-time server metrics. Achieved 14% memory reduction and 15% energy savings over traditional heuristics. Published at ICT4SD 2025.",
+      "Round-robin is dumb. This DDPG reinforcement learning agent routes tasks across a 5-node AWS EC2 cluster using real-time server metrics. −14% memory, −15% energy over traditional heuristics. Published at ICT4SD 2025.",
     highlights: ["−14% memory usage", "−15% energy consumption", "Published — ICT4SD 2025"],
     github: "https://github.com/Dorai-Sai-Charan",
+    hue: "#818cf8",
+    Visual: () => (
+      <svg viewBox="0 0 280 160" fill="none" className="w-full h-full">
+        {/* Central node */}
+        <circle cx="140" cy="80" r="18" fill="rgba(99,102,241,0.2)" stroke="rgba(99,102,241,0.5)" strokeWidth="1.5" />
+        <circle cx="140" cy="80" r="6" fill="rgba(99,102,241,0.8)" />
+        {/* 5 EC2 nodes */}
+        {[
+          { cx: 60, cy: 40 }, { cx: 220, cy: 40 },
+          { cx: 40, cy: 120 }, { cx: 140, cy: 140 }, { cx: 240, cy: 120 },
+        ].map((n, i) => (
+          <g key={i}>
+            <line x1={140} y1={80} x2={n.cx} y2={n.cy}
+              stroke={i === 1 ? "rgba(99,102,241,0.6)" : "rgba(99,102,241,0.2)"}
+              strokeWidth={i === 1 ? "1.5" : "1"} strokeDasharray={i === 1 ? "none" : "4 3"} />
+            <circle cx={n.cx} cy={n.cy} r="12"
+              fill={i === 1 ? "rgba(99,102,241,0.25)" : "rgba(99,102,241,0.1)"}
+              stroke="rgba(99,102,241,0.4)" strokeWidth="1" />
+            <circle cx={n.cx} cy={n.cy} r="4"
+              fill={i === 1 ? "rgba(99,102,241,0.9)" : "rgba(99,102,241,0.5)"} />
+          </g>
+        ))}
+        {/* Pulsing ring on active node */}
+        <circle cx="220" cy="40" r="20" stroke="rgba(99,102,241,0.25)" strokeWidth="1" fill="none" />
+      </svg>
+    ),
   },
   {
     num: "03",
     title: "Solar Fault Detector",
-    sub: "Deep Learning Fault Classification for Solar Panels",
-    stack: ["Python", "PyTorch", "ResNet50", "VGG16", "Computer Vision"],
+    sub: "Deep Learning Computer Vision",
+    stack: ["Python", "PyTorch", "ResNet50", "VGG16", "OpenCV"],
     description:
-      "Solar panel faults are often detected too late, reducing efficiency and causing costly failures. This hybrid ResNet50 + VGG16 model classifies faults with 97.12% binary accuracy. Benchmarked against CNN, CBAM-CNN, InceptionV3, AlexNet. Published at IEEE ICITEICS 2025.",
-    highlights: ["97.12% binary accuracy", "78% multi-class accuracy", "Published — IEEE ICITEICS 2025"],
+      "Solar faults caught late mean wasted energy and costly repairs. Hybrid ResNet50 + VGG16 classifies panel faults with 97.12% binary accuracy. Benchmarked against 4 other architectures. Published at IEEE ICITEICS 2025.",
+    highlights: ["97.12% binary accuracy", "78% multi-class accuracy", "Published — IEEE 2025"],
     github: "https://github.com/Dorai-Sai-Charan",
+    hue: "#f59e0b",
+    Visual: () => (
+      <svg viewBox="0 0 280 160" fill="none" className="w-full h-full">
+        {/* Solar panel grid — 3×2 */}
+        {[0, 1, 2].map(col =>
+          [0, 1].map(row => {
+            const isFaulty = col === 1 && row === 1;
+            const x = 55 + col * 65, y = 35 + row * 60;
+            return (
+              <g key={`${col}-${row}`}>
+                <rect x={x} y={y} width={50} height={44} rx={3}
+                  fill={isFaulty ? "rgba(239,68,68,0.2)" : "rgba(245,158,11,0.1)"}
+                  stroke={isFaulty ? "rgba(239,68,68,0.7)" : "rgba(245,158,11,0.3)"}
+                  strokeWidth={isFaulty ? 1.5 : 1} />
+                {/* Panel lines */}
+                <line x1={x + 25} y1={y} x2={x + 25} y2={y + 44}
+                  stroke={isFaulty ? "rgba(239,68,68,0.3)" : "rgba(245,158,11,0.15)"} strokeWidth="1" />
+                <line x1={x} y1={y + 22} x2={x + 50} y2={y + 22}
+                  stroke={isFaulty ? "rgba(239,68,68,0.3)" : "rgba(245,158,11,0.15)"} strokeWidth="1" />
+                {isFaulty && (
+                  <>
+                    <line x1={x + 10} y1={y + 10} x2={x + 40} y2={y + 34}
+                      stroke="rgba(239,68,68,0.7)" strokeWidth="1.5" />
+                    <line x1={x + 40} y1={y + 10} x2={x + 10} y2={y + 34}
+                      stroke="rgba(239,68,68,0.7)" strokeWidth="1.5" />
+                  </>
+                )}
+              </g>
+            );
+          })
+        )}
+        {/* Accuracy badge */}
+        <rect x="185" y="115" width="80" height="26" rx="13"
+          fill="rgba(245,158,11,0.15)" stroke="rgba(245,158,11,0.4)" strokeWidth="1" />
+        <text x="225" y="132" textAnchor="middle" fill="rgba(245,158,11,0.9)"
+          fontSize="10" fontFamily="monospace">97.12% acc.</text>
+      </svg>
+    ),
   },
 ];
 
-function TiltCard({ children }: { children: React.ReactNode }) {
-  const [tilt, setTilt] = useState({ x: 0, y: 0 });
-
-  const handleMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    const r = e.currentTarget.getBoundingClientRect();
-    const x = ((e.clientX - r.left) / r.width - 0.5) * 10;
-    const y = ((e.clientY - r.top) / r.height - 0.5) * -10;
-    setTilt({ x, y });
+function SpotlightCard({ children, className, style }: {
+  children: React.ReactNode;
+  className?: string;
+  style?: React.CSSProperties;
+}) {
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    e.currentTarget.style.setProperty("--mouse-x", `${e.clientX - rect.left}px`);
+    e.currentTarget.style.setProperty("--mouse-y", `${e.clientY - rect.top}px`);
   };
-
   return (
-    <motion.div
-      onMouseMove={handleMove}
-      onMouseLeave={() => setTilt({ x: 0, y: 0 })}
-      animate={{ rotateY: tilt.x, rotateX: tilt.y }}
-      transition={{ type: "spring", stiffness: 180, damping: 22 }}
-      style={{ transformPerspective: 1200, transformStyle: "preserve-3d" }}
-    >
+    <div className={`spotlight-card ${className ?? ""}`} style={style} onMouseMove={handleMouseMove}>
       {children}
-    </motion.div>
+    </div>
   );
 }
 
 export default function Projects() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-80px" });
-  const [active, setActive] = useState<number | null>(null);
 
   return (
     <section id="projects" className="py-24 md:py-32 px-6 md:px-14" ref={ref}>
@@ -78,123 +159,96 @@ export default function Projects() {
         <a
           href="https://github.com/Dorai-Sai-Charan"
           target="_blank" rel="noopener noreferrer"
-          className="section-label link-hover flex items-center gap-1"
-          style={{ transition: "color 0.2s" }}
+          className="section-label link-hover flex items-center gap-1 transition-colors"
           onMouseEnter={e => (e.currentTarget.style.color = "var(--accent)")}
           onMouseLeave={e => (e.currentTarget.style.color = "")}
         >
-          View all <FiArrowUpRight size={12} />
+          GitHub <FiArrowUpRight size={12} />
         </a>
       </motion.div>
 
-      <div>
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
         {projects.map((p, i) => (
           <motion.div
             key={p.num}
-            initial={{ opacity: 0, y: 24 }}
+            initial={{ opacity: 0, y: 32 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.08 + i * 0.14, ease: [0.33, 1, 0.68, 1] }}
-            className="project-row"
+            transition={{ duration: 0.6, delay: 0.1 + i * 0.14, ease: [0.33, 1, 0.68, 1] }}
           >
-            {/* Row header */}
-            <button
-              className="w-full text-left py-7 flex items-start md:items-center justify-between gap-4 group"
-              onClick={() => setActive(active === i ? null : i)}
+            <SpotlightCard
+              className="h-full rounded-2xl border flex flex-col group transition-all duration-300"
+              style={{
+                background: "var(--surface)",
+                borderColor: "var(--border)",
+              }}
             >
-              <div className="flex items-start md:items-center gap-5 md:gap-8 flex-1 min-w-0">
-                <span className="font-display font-bold text-xs shrink-0 mt-1 md:mt-0" style={{ color: "var(--muted)" }}>
-                  {p.num}
-                </span>
-                <div className="min-w-0">
-                  <span
-                    className="font-display font-bold text-xl md:text-2xl block transition-colors duration-200"
+              {/* Visual area */}
+              <div
+                className="relative overflow-hidden rounded-t-2xl transition-all duration-500 group-hover:opacity-90"
+                style={{ height: 168, background: "#0d0d0f" }}
+              >
+                <p.Visual />
+                {/* Subtle top gradient fade */}
+                <div className="absolute inset-0 pointer-events-none"
+                  style={{ background: "linear-gradient(180deg, rgba(9,9,11,0.3) 0%, transparent 50%)" }} />
+                {/* Number badge */}
+                <span
+                  className="absolute top-3 left-4 font-display font-bold text-xs"
+                  style={{ color: "var(--muted)" }}
+                >{p.num}</span>
+                {/* Hover glow on visual */}
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+                  style={{ background: `radial-gradient(ellipse at 50% 50%, ${p.hue}14, transparent 70%)` }} />
+              </div>
+
+              {/* Card body */}
+              <div className="flex flex-col flex-1 p-5 gap-4">
+                <div>
+                  <h3 className="font-display font-bold text-lg mb-1 transition-colors duration-200 group-hover:text-accent"
                     style={{ color: "var(--text)" }}
                     onMouseEnter={e => (e.currentTarget.style.color = "var(--accent)")}
                     onMouseLeave={e => (e.currentTarget.style.color = "var(--text)")}
                   >
                     {p.title}
-                  </span>
-                  <span className="text-xs mt-0.5 block" style={{ color: "var(--muted)" }}>
-                    {p.sub}
-                  </span>
+                  </h3>
+                  <p className="text-xs font-display font-semibold" style={{ color: "var(--muted)" }}>{p.sub}</p>
                 </div>
-              </div>
 
-              <div className="flex items-center gap-4 shrink-0">
-                <div className="hidden lg:flex gap-2">
-                  {p.stack.slice(0, 3).map(t => (
-                    <span key={t} className="pill">{t}</span>
+                <p className="text-sm leading-relaxed flex-1" style={{ color: "var(--text-2)" }}>
+                  {p.description}
+                </p>
+
+                {/* Highlights */}
+                <div className="space-y-1.5">
+                  {p.highlights.map(h => (
+                    <div key={h} className="flex items-center gap-2">
+                      <span className="w-1 h-1 rounded-full shrink-0" style={{ background: p.hue, opacity: 0.8 }} />
+                      <span className="text-xs" style={{ color: "var(--text-2)" }}>{h}</span>
+                    </div>
                   ))}
                 </div>
-                <motion.div
-                  animate={{ rotate: active === i ? 45 : 0 }}
-                  transition={{ duration: 0.25, ease: [0.33, 1, 0.68, 1] }}
-                  className="w-8 h-8 rounded-full border flex items-center justify-center shrink-0 transition-colors"
-                  style={{ borderColor: active === i ? "var(--accent)" : "var(--border)", color: active === i ? "var(--accent)" : "var(--muted)" }}
-                >
-                  <FiArrowUpRight size={14} />
-                </motion.div>
-              </div>
-            </button>
 
-            {/* Expanded 3D tilt card */}
-            <AnimatePresence>
-              {active === i && (
-                <motion.div
-                  key="detail"
-                  initial={{ height: 0, opacity: 0 }}
-                  animate={{ height: "auto", opacity: 1 }}
-                  exit={{ height: 0, opacity: 0 }}
-                  transition={{ duration: 0.35, ease: [0.33, 1, 0.68, 1] }}
-                  style={{ overflow: "hidden" }}
-                >
-                  <div className="pb-8 pl-0 md:pl-16">
-                    <TiltCard>
-                      <div
-                        className="grid grid-cols-1 md:grid-cols-2 gap-8 p-6 rounded-xl border"
-                        style={{ background: "var(--surface)", borderColor: "var(--border)" }}
-                      >
-                        <div>
-                          <p className="text-sm leading-relaxed mb-5" style={{ color: "var(--text-2)" }}>
-                            {p.description}
-                          </p>
-                          <div className="flex flex-wrap gap-2">
-                            {p.stack.map(t => (
-                              <span key={t} className="pill-accent">{t}</span>
-                            ))}
-                          </div>
-                        </div>
-                        <div className="space-y-3">
-                          {p.highlights.map((h, hi) => (
-                            <motion.div
-                              key={h}
-                              initial={{ opacity: 0, x: 12 }}
-                              animate={{ opacity: 1, x: 0 }}
-                              transition={{ delay: hi * 0.08, duration: 0.4 }}
-                              className="flex items-center gap-3"
-                            >
-                              <span className="w-1.5 h-1.5 rounded-full shrink-0" style={{ background: "var(--accent)" }} />
-                              <span className="text-sm font-medium" style={{ color: "var(--text)" }}>{h}</span>
-                            </motion.div>
-                          ))}
-                          <a
-                            href={p.github}
-                            target="_blank" rel="noopener noreferrer"
-                            className="inline-flex items-center gap-2 mt-5 text-sm font-display font-semibold transition-colors"
-                            style={{ color: "var(--accent)" }}
-                            onMouseEnter={e => (e.currentTarget.style.opacity = "0.75")}
-                            onMouseLeave={e => (e.currentTarget.style.opacity = "1")}
-                          >
-                            <FiExternalLink size={14} />
-                            View on GitHub
-                          </a>
-                        </div>
-                      </div>
-                    </TiltCard>
+                {/* Footer */}
+                <div className="flex items-center justify-between pt-3 border-t" style={{ borderColor: "var(--border)" }}>
+                  <div className="flex flex-wrap gap-1.5">
+                    {p.stack.slice(0, 3).map(t => (
+                      <span key={t} className="pill">{t}</span>
+                    ))}
                   </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
+                  <a
+                    href={p.github}
+                    target="_blank" rel="noopener noreferrer"
+                    className="flex items-center gap-1 text-xs font-display font-semibold transition-colors"
+                    style={{ color: "var(--muted)" }}
+                    onMouseEnter={e => (e.currentTarget.style.color = "var(--accent)")}
+                    onMouseLeave={e => (e.currentTarget.style.color = "var(--muted)")}
+                  >
+                    <FiExternalLink size={12} />
+                    Code
+                  </a>
+                </div>
+              </div>
+            </SpotlightCard>
           </motion.div>
         ))}
       </div>

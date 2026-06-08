@@ -50,21 +50,24 @@ export default function About() {
             className="space-y-5 text-base leading-[1.85]" style={{ color: "var(--text-2)" }}
           >
             <p>
-              I&apos;m a final-year{" "}
-              <span style={{ color: "var(--text)", fontWeight: 500 }}>Computer Science with AI</span>{" "}
-              student at{" "}
-              <span style={{ color: "var(--text)", fontWeight: 500 }}>Amrita Vishwa Vidyapeetham, Bengaluru</span>{" "}
-              with a 8.69 CGPA, focused on building scalable backend systems and applying machine learning to real problems.
+              I&apos;m wrapping up my BTech in{" "}
+              <span style={{ color: "var(--text)", fontWeight: 500 }}>CS + Artificial Intelligence</span>{" "}
+              at Amrita Vishwa Vidyapeetham — and by the time you read this, I&apos;m probably debugging something that
+              works fine on my machine. 8.69 CGPA, currently interning.
             </p>
             <p>
-              My work spans production-grade FastAPI platforms with 30+ REST endpoints, reinforcement learning
-              deployed across 5-node AWS EC2 clusters, and hybrid CNN architectures hitting 97.12% accuracy — all
-              backed by peer-reviewed research at IEEE and ICT4SD conferences.
+              I&apos;ve built a financial platform handling real transactions, deployed an AI system that cuts cloud energy usage by{" "}
+              <span style={{ color: "var(--text)", fontWeight: 500 }}>15%</span>, and trained a computer vision model with{" "}
+              <span style={{ color: "var(--text)", fontWeight: 500 }}>97% accuracy</span> — then published all of it
+              at{" "}
+              <span style={{ color: "var(--text)", fontWeight: 500 }}>IEEE and ICT4SD</span> conferences.
+              The kind of work where rubber meets road.
             </p>
             <p>
-              Currently exploring{" "}
+              Currently deep into{" "}
               <span style={{ color: "var(--accent)", fontWeight: 500 }}>Generative AI</span> — RAG pipelines,
-              LangChain agents, and transformer architectures. I believe research and engineering go hand in hand.
+              LangChain agents, transformer fine-tuning. I think research and shipping aren&apos;t opposites;
+              they&apos;re the same loop.
             </p>
           </motion.div>
 

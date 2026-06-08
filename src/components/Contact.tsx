@@ -26,11 +26,8 @@ function MagneticButton({ href, children }: { href: string; children: React.Reac
       transition={{ type: "spring", stiffness: 300, damping: 20 }}
       onMouseMove={handleMove}
       onMouseLeave={handleLeave}
-      className="magnetic-btn px-10 py-4 font-display font-bold text-base tracking-tight rounded"
-      style={{
-        background: "var(--accent)",
-        color: "#0d0d0d",
-      }}
+      className="magnetic-btn animated-border px-10 py-4 font-display font-bold text-base tracking-tight rounded-lg"
+      style={{ color: "var(--accent)" }}
     >
       {children}
     </motion.a>
