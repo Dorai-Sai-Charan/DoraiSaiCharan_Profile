@@ -1,3 +1,8 @@
+"use client";
+
+import { useState } from "react";
+import { AnimatePresence } from "framer-motion";
+import LoadingScreen from "@/components/LoadingScreen";
 import CustomCursor from "@/components/CustomCursor";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
@@ -11,8 +16,15 @@ import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 
 export default function Home() {
+  const [loaded, setLoaded] = useState(false);
+
   return (
     <>
+      <AnimatePresence>
+        {!loaded && (
+          <LoadingScreen key="loader" onComplete={() => setLoaded(true)} />
+        )}
+      </AnimatePresence>
       <CustomCursor />
       <main style={{ background: "var(--bg)", color: "var(--text)" }}>
         <Navbar />
