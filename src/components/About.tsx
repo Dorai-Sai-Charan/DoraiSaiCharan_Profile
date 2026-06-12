@@ -23,22 +23,35 @@ export default function About() {
   const isInView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <section id="about" className="py-28 md:py-36 px-6 md:px-14" ref={ref}>
+    <section id="about" className="py-28 md:py-36 px-6 md:px-14 relative" ref={ref}>
+      {/* Decorative background number */}
+      <div
+        aria-hidden
+        className="pointer-events-none select-none absolute right-[-1vw] top-1/2 -translate-y-1/2 font-display font-black leading-none"
+        style={{
+          fontSize: "clamp(10rem, 28vw, 22rem)",
+          letterSpacing: "-0.06em",
+          color: "rgba(91,42,230,0.032)",
+          zIndex: 0,
+        }}
+      >
+        02
+      </div>
       {/* Label */}
       <motion.div variants={fadeUp(0)} initial="hidden" animate={isInView ? "visible" : "hidden"}
-        className="flex items-center gap-4 mb-20">
+        className="flex items-center gap-4 mb-20 relative z-10">
         <span className="section-label">01 — About</span>
         <span className="flex-1 h-px" style={{ background: "var(--border)" }} />
       </motion.div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-5 gap-16 lg:gap-20">
+      <div className="grid grid-cols-1 lg:grid-cols-5 gap-16 lg:gap-20 relative z-10">
 
         {/* ── Left 3 cols — text ── */}
         <div className="lg:col-span-3 space-y-8">
           <motion.h2
             variants={fadeUp(0.1)} initial="hidden" animate={isInView ? "visible" : "hidden"}
             className="font-display font-bold leading-tight"
-            style={{ fontSize: "clamp(1.6rem, 3.5vw, 2.8rem)", color: "var(--text)" }}
+            style={{ fontSize: "clamp(1.9rem, 4vw, 3.4rem)", color: "var(--text)" }}
           >
             Building at the edge of{" "}
             <span style={{ color: "var(--accent)" }}>Artificial Intelligence</span>{" "}
@@ -97,7 +110,7 @@ export default function About() {
                 className="border-t pt-5"
                 style={{ borderColor: "var(--border)" }}
               >
-                <div className="stat-number" style={{ fontSize: "clamp(2.2rem, 5vw, 3.8rem)" }}>{value}</div>
+                <div className="stat-number stat-gradient" style={{ fontSize: "clamp(3.2rem, 7vw, 5.2rem)" }}>{value}</div>
                 <p className="mt-2 text-xs font-display font-semibold tracking-widest uppercase"
                   style={{ color: "var(--text-2)" }}>{label}</p>
               </motion.div>
@@ -109,12 +122,12 @@ export default function About() {
             initial={{ opacity: 0, scale: 0.88 }}
             animate={isInView ? { opacity: 1, scale: 1 } : {}}
             transition={{ delay: 0.5, duration: 0.7, ease: [0.33, 1, 0.68, 1] }}
-            className="flex flex-col items-center gap-3 py-6 border rounded-2xl"
-            style={{ borderColor: "var(--border)", background: "var(--surface)" }}
+            className="flex flex-col items-center gap-4 py-8 px-4 border rounded-2xl glass-card"
+            style={{ borderColor: "var(--border)" }}
           >
             <Globe />
-            <p className="text-xs font-display" style={{ color: "var(--text-2)" }}>
-              Based in Bengaluru, India · Open to Remote
+            <p className="text-xs font-display font-semibold tracking-wide" style={{ color: "var(--white-3)" }}>
+              📍 Bengaluru, India · Open to Remote
             </p>
           </motion.div>
         </div>

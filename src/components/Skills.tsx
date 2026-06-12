@@ -14,62 +14,62 @@ const groups = [
   {
     label: "Languages",
     items: [
-      { name: "Python",     Icon: SiPython,     color: "#3776AB" },
-      { name: "TypeScript", Icon: SiTypescript, color: "#3178C6" },
-      { name: "C++",        Icon: SiCplusplus,  color: "#00599C" },
-      { name: "SQL",        Icon: FiDatabase,   color: "#888" },
+      { name: "Python",     Icon: SiPython     },
+      { name: "TypeScript", Icon: SiTypescript },
+      { name: "C++",        Icon: SiCplusplus  },
+      { name: "SQL",        Icon: FiDatabase   },
     ],
   },
   {
     label: "Backend",
     items: [
-      { name: "FastAPI",    Icon: SiFastapi,    color: "#009688" },
-      { name: "Next.js",    Icon: SiNextdotjs,  color: "#f0f0f0" },
-      { name: "REST APIs",  Icon: FiCode,       color: "#888" },
-      { name: "JWT Auth",   Icon: FiLayers,     color: "#888" },
+      { name: "FastAPI",    Icon: SiFastapi    },
+      { name: "Next.js",    Icon: SiNextdotjs  },
+      { name: "REST APIs",  Icon: FiCode       },
+      { name: "JWT Auth",   Icon: FiLayers     },
     ],
   },
   {
     label: "Databases",
     items: [
-      { name: "PostgreSQL",  Icon: SiPostgresql, color: "#4169E1" },
-      { name: "SQLAlchemy",  Icon: FiDatabase,   color: "#888" },
-      { name: "Git",         Icon: SiGit,        color: "#F05032" },
-      { name: "GitHub",      Icon: SiGithub,     color: "#f0f0f0" },
+      { name: "PostgreSQL",  Icon: SiPostgresql },
+      { name: "SQLAlchemy",  Icon: FiDatabase   },
+      { name: "Git",         Icon: SiGit        },
+      { name: "GitHub",      Icon: SiGithub     },
     ],
   },
   {
     label: "ML & AI",
     items: [
-      { name: "TensorFlow",   Icon: SiTensorflow,  color: "#FF6F00" },
-      { name: "PyTorch",      Icon: SiPytorch,     color: "#EE4C2C" },
-      { name: "Scikit-learn", Icon: SiScikitlearn, color: "#F7931E" },
-      { name: "NumPy",        Icon: SiNumpy,       color: "#4DABCF" },
-      { name: "Pandas",       Icon: FiBarChart2,   color: "#130754" },
-      { name: "Jupyter",      Icon: SiJupyter,     color: "#F37626" },
+      { name: "TensorFlow",   Icon: SiTensorflow  },
+      { name: "PyTorch",      Icon: SiPytorch     },
+      { name: "Scikit-learn", Icon: SiScikitlearn },
+      { name: "NumPy",        Icon: SiNumpy       },
+      { name: "Pandas",       Icon: FiBarChart2   },
+      { name: "Jupyter",      Icon: SiJupyter     },
     ],
   },
   {
     label: "Gen AI & NLP",
     items: [
-      { name: "LangChain",    Icon: FiLink,         color: "#888" },
-      { name: "Transformers", Icon: FiCpu,          color: "#888" },
-      { name: "RAG",          Icon: FiLayers,       color: "#888" },
-      { name: "Prompt Eng.",  Icon: FiMessageSquare, color: "#888" },
+      { name: "LangChain",    Icon: FiLink          },
+      { name: "Transformers", Icon: FiCpu           },
+      { name: "RAG",          Icon: FiLayers        },
+      { name: "Prompt Eng.",  Icon: FiMessageSquare },
     ],
   },
   {
     label: "Cloud & Tools",
     items: [
-      { name: "AWS EC2",  Icon: FaAws,               color: "#FF9900" },
-      { name: "Docker",   Icon: SiDocker,            color: "#2496ED" },
-      { name: "Linux",    Icon: SiLinux,             color: "#FCC624" },
-      { name: "CI/CD",    Icon: FiLayers,            color: "#888" },
+      { name: "AWS EC2",  Icon: FaAws    },
+      { name: "Docker",   Icon: SiDocker },
+      { name: "Linux",    Icon: SiLinux  },
+      { name: "CI/CD",    Icon: FiLayers },
     ],
   },
 ];
 
-function TechCard({ name, Icon, color, delay }: { name: string; Icon: React.ElementType; color: string; delay: number }) {
+function TechCard({ name, Icon, delay }: { name: string; Icon: React.ElementType; delay: number }) {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true });
 
@@ -83,11 +83,9 @@ function TechCard({ name, Icon, color, delay }: { name: string; Icon: React.Elem
       title={name}
     >
       <Icon
-        size={26}
+        size={34}
         className="tech-icon"
         style={{ color: "var(--text-2)" }}
-        onMouseEnter={(e: React.MouseEvent) => ((e.target as SVGElement).style.color = color)}
-        onMouseLeave={(e: React.MouseEvent) => ((e.target as SVGElement).style.color = "var(--text-2)")}
       />
       <span className="text-xs font-display font-semibold text-center leading-tight"
         style={{ color: "var(--text-2)" }}>
@@ -168,17 +166,18 @@ export default function Skills() {
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.5, delay: 0.2 + gi * 0.07 }}
           >
-            <p className="font-display font-bold text-xs tracking-widest uppercase mb-5"
-              style={{ color: "var(--accent)" }}>
-              {group.label}
-            </p>
+            <div className="flex items-center gap-3 mb-5">
+              <p className="font-display font-bold text-xs tracking-widest uppercase text-gradient-accent">
+                {group.label}
+              </p>
+              <span className="flex-1 h-px" style={{ background: "linear-gradient(90deg, rgba(109,50,255,0.22), transparent)" }} />
+            </div>
             <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 gap-3">
               {group.items.map((item, ii) => (
                 <TechCard
                   key={item.name}
                   name={item.name}
                   Icon={item.Icon}
-                  color={item.color}
                   delay={0.25 + gi * 0.05 + ii * 0.04}
                 />
               ))}

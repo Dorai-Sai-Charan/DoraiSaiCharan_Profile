@@ -26,7 +26,7 @@ export default function Home() {
         )}
       </AnimatePresence>
       <CustomCursor />
-      <main style={{ background: "var(--bg)", color: "var(--text)" }}>
+      <main style={{ color: "var(--text)" }}>
         <Navbar />
         <Hero />
         <About />

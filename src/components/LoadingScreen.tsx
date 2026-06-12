@@ -44,7 +44,7 @@ export default function LoadingScreen({ onComplete }: { onComplete: () => void }
       {/* ── Curtain panel (full screen, slides up on exit) ── */}
       <motion.div
         className="absolute inset-0"
-        style={{ background: "#09090b" }}
+        style={{ background: "#040611" }}
         animate={isExit ? { y: "-100%" } : { y: 0 }}
         transition={{ duration: 0.95, ease: [0.76, 0, 0.24, 1] }}
       />
@@ -65,11 +65,11 @@ export default function LoadingScreen({ onComplete }: { onComplete: () => void }
             width: 700,
             height: 500,
             background:
-              "radial-gradient(ellipse at center, rgba(34,211,238,0.09) 0%, transparent 70%)",
+              "radial-gradient(ellipse at center, rgba(91,42,230,0.14) 0%, rgba(60,29,140,0.06) 55%, transparent 75%)",
             filter: "blur(60px)",
           }}
         />
-        {/* Subtle secondary purple glow */}
+        {/* Secondary violet accent glow */}
         <div
           className="absolute"
           style={{
@@ -79,7 +79,7 @@ export default function LoadingScreen({ onComplete }: { onComplete: () => void }
             width: 400,
             height: 300,
             background:
-              "radial-gradient(ellipse at center, rgba(129,140,248,0.05) 0%, transparent 70%)",
+              "radial-gradient(ellipse at center, rgba(109,50,255,0.08) 0%, transparent 70%)",
             filter: "blur(60px)",
           }}
         />
@@ -99,10 +99,10 @@ export default function LoadingScreen({ onComplete }: { onComplete: () => void }
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: [0.33, 1, 0.68, 1] }}
           style={{
-            fontSize: "clamp(5.5rem, 18vw, 11rem)",
+            fontSize: "clamp(6rem, 20vw, 13rem)",
             color: "var(--accent)",
             letterSpacing: "-0.05em",
-            textShadow: "0 0 80px rgba(34,211,238,0.4), 0 0 160px rgba(34,211,238,0.15)",
+            textShadow: "0 0 60px rgba(109,50,255,0.65), 0 0 120px rgba(91,42,230,0.28), 0 0 200px rgba(60,29,140,0.12)",
           }}
         >
           {String(count).padStart(2, "0")}
@@ -115,8 +115,9 @@ export default function LoadingScreen({ onComplete }: { onComplete: () => void }
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.3 }}
           style={{
-            fontSize: "clamp(0.6rem, 1.4vw, 0.85rem)",
-            color: "rgba(244,244,245,0.4)",
+            fontSize: "clamp(0.65rem, 1.4vw, 0.9rem)",
+            color: "rgba(244,244,245,0.55)",
+            letterSpacing: "0.42em",
           }}
         >
           DORAI SAI CHARAN
@@ -135,7 +136,7 @@ export default function LoadingScreen({ onComplete }: { onComplete: () => void }
             className="w-full relative overflow-hidden"
             style={{
               height: 1,
-              background: "rgba(34,211,238,0.12)",
+              background: "rgba(91,42,230,0.12)",
               borderRadius: 1,
             }}
           >
@@ -144,8 +145,8 @@ export default function LoadingScreen({ onComplete }: { onComplete: () => void }
               className="absolute left-0 top-0 h-full"
               style={{
                 width: `${count}%`,
-                background: "linear-gradient(90deg, var(--accent), rgba(34,211,238,0.55))",
-                boxShadow: "0 0 14px rgba(34,211,238,0.9)",
+                background: "linear-gradient(90deg, var(--accent), rgba(109,50,255,0.55))",
+                boxShadow: "0 0 14px rgba(109,50,255,0.90)",
                 borderRadius: 1,
                 transition: "width 0.05s linear",
               }}
@@ -158,7 +159,7 @@ export default function LoadingScreen({ onComplete }: { onComplete: () => void }
             style={{
               fontSize: "0.65rem",
               letterSpacing: "0.06em",
-              color: "rgba(34,211,238,0.45)",
+              color: "rgba(91,42,230,0.55)",
             }}
           >
             {count}%
@@ -169,7 +170,7 @@ export default function LoadingScreen({ onComplete }: { onComplete: () => void }
       {/* ── Corner labels ── */}
       <motion.span
         className="absolute top-8 left-8 font-display uppercase tracking-widest"
-        style={{ fontSize: "0.65rem", color: "rgba(34,211,238,0.28)", zIndex: 3 }}
+        style={{ fontSize: "0.65rem", color: "rgba(91,42,230,0.45)", zIndex: 3 }}
         initial={{ opacity: 0 }}
         animate={isExit ? { opacity: 0 } : { opacity: 1 }}
         transition={{ duration: 0.5, delay: 0.2 }}

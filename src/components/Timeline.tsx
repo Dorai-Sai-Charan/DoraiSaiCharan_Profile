@@ -90,8 +90,8 @@ export default function Timeline() {
           className="absolute left-0 top-0 w-px origin-top"
           style={{
             height: lineHeight,
-            background: "linear-gradient(180deg, var(--accent) 0%, rgba(34,211,238,0.3) 100%)",
-            boxShadow: "0 0 8px rgba(34,211,238,0.4)",
+            background: "linear-gradient(180deg, var(--accent) 0%, rgba(109,50,255,0.3) 100%)",
+            boxShadow: "0 0 8px rgba(91,42,230,0.45)",
           }}
         />
 
@@ -111,7 +111,7 @@ export default function Timeline() {
                   top: "4px",
                   borderColor: item.accent ? "var(--accent)" : "var(--border-strong)",
                   background: item.accent ? "var(--accent)" : "var(--bg)",
-                  boxShadow: item.accent ? "0 0 10px rgba(34,211,238,0.5)" : "none",
+                  boxShadow: item.accent ? "0 0 10px rgba(109,50,255,0.55)" : "none",
                 }}
               />
 
@@ -137,12 +137,19 @@ export default function Timeline() {
                 </div>
 
                 {/* Title + icon */}
-                <div className="flex items-start gap-3 mb-1.5">
-                  <item.Icon
-                    size={17}
-                    className="mt-0.5 shrink-0"
-                    style={{ color: item.accent ? "var(--accent)" : "var(--muted)" }}
-                  />
+                <div className="flex items-center gap-3 mb-1.5">
+                  <div
+                    className="shrink-0 w-9 h-9 rounded-full flex items-center justify-center"
+                    style={{
+                      background: item.accent ? "rgba(91,42,230,0.14)" : "rgba(255,255,255,0.05)",
+                      border: `1px solid ${item.accent ? "rgba(109,50,255,0.28)" : "rgba(255,255,255,0.08)"}`,
+                    }}
+                  >
+                    <item.Icon
+                      size={17}
+                      style={{ color: item.accent ? "var(--accent)" : "var(--muted)" }}
+                    />
+                  </div>
                   <h3
                     className="font-display font-bold text-base md:text-lg leading-tight"
                     style={{ color: "var(--text)" }}
@@ -151,19 +158,19 @@ export default function Timeline() {
                   </h3>
                 </div>
 
-                <p className="text-sm font-medium mb-1.5 ml-7" style={{ color: "var(--text-2)" }}>
+                <p className="text-sm font-medium mb-1.5 ml-12" style={{ color: "var(--text-2)" }}>
                   {item.subtitle}
                 </p>
 
                 <p
-                  className="text-xs font-display font-semibold mb-2 ml-7"
+                  className="text-xs font-display font-semibold mb-2 ml-12"
                   style={{ color: item.accent ? "var(--accent)" : "var(--muted)" }}
                 >
                   {item.detail}
                 </p>
 
                 {item.note && (
-                  <p className="text-xs leading-relaxed ml-7" style={{ color: "var(--muted)" }}>
+                  <p className="text-xs leading-relaxed ml-12" style={{ color: "var(--muted)" }}>
                     {item.note}
                   </p>
                 )}
