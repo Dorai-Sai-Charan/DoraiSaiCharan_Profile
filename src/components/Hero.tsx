@@ -267,7 +267,7 @@ export default function Hero() {
               aria-label="Enlarge profile photo"
             >
               <Image
-                src="/profile.jpg"
+                src="/profile.png"
                 alt="Dorai Sai Charan"
                 width={230}
                 height={230}
@@ -323,7 +323,7 @@ export default function Hero() {
                   onClick={e => e.stopPropagation()}
                 >
                   <Image
-                    src="/profile.jpg"
+                    src="/profile.png"
                     alt="Dorai Sai Charan"
                     width={500}
                     height={500}

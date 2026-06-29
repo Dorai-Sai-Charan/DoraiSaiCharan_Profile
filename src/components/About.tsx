@@ -7,7 +7,7 @@ import dynamic from "next/dynamic";
 const Globe = dynamic(() => import("./Globe"), { ssr: false });
 
 const stats = [
-  { value: "8.69", label: "CGPA" },
+  { value: "8.65", label: "CGPA" },
   { value: "3+", label: "Publications" },
   { value: "30+", label: "API Endpoints" },
   { value: "97%", label: "Model Accuracy" },
@@ -66,7 +66,7 @@ export default function About() {
               I&apos;m wrapping up my BTech in{" "}
               <span style={{ color: "var(--text)", fontWeight: 500 }}>CS + Artificial Intelligence</span>{" "}
               at Amrita Vishwa Vidyapeetham — and by the time you read this, I&apos;m probably debugging something that
-              works fine on my machine. 8.69 CGPA, currently interning.
+              works fine on my machine. 8.65 CGPA, currently interning.
             </p>
             <p>
               I&apos;ve built a financial platform handling real transactions, deployed an AI system that cuts cloud energy usage by{" "}

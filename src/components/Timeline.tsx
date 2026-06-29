@@ -9,9 +9,9 @@ const items = [
   {
     year: "2025 — Present",
     title: "Software Engineering Intern",
-    subtitle: "Your Company · Bengaluru",
-    detail: "Replace with your actual internship company and role",
-    note: "Working on: [describe what you're building] — update this with your actual internship details",
+    subtitle: "New Street Tech · Bengaluru",
+    detail: "Node.js · Fintech · Microservices · PostgreSQL",
+    note: "Built scalable RESTful APIs for fintech applications, contributed to microservices architecture, and optimized complex PostgreSQL queries for distributed backend services.",
     Icon: FiBriefcase,
     accent: true,
     tag: "Current",

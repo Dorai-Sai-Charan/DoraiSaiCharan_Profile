@@ -5,9 +5,9 @@ import { motion, useInView } from "framer-motion";
 import {
   SiPython, SiFastapi, SiPostgresql, SiNextdotjs, SiTypescript, SiCplusplus,
   SiTensorflow, SiPytorch, SiDocker, SiGit, SiLinux, SiJupyter,
-  SiNumpy, SiScikitlearn, SiGithub,
+  SiNumpy, SiScikitlearn, SiGithub, SiRedis,
 } from "react-icons/si";
-import { FaAws } from "react-icons/fa";
+import { FaAws, FaJava } from "react-icons/fa";
 import { FiDatabase, FiLink, FiCpu, FiLayers, FiMessageSquare, FiBarChart2, FiCode } from "react-icons/fi";
 
 const groups = [
@@ -17,6 +17,7 @@ const groups = [
       { name: "Python",     Icon: SiPython     },
       { name: "TypeScript", Icon: SiTypescript },
       { name: "C++",        Icon: SiCplusplus  },
+      { name: "Java",       Icon: FaJava       },
       { name: "SQL",        Icon: FiDatabase   },
     ],
   },
@@ -27,6 +28,7 @@ const groups = [
       { name: "Next.js",    Icon: SiNextdotjs  },
       { name: "REST APIs",  Icon: FiCode       },
       { name: "JWT Auth",   Icon: FiLayers     },
+      { name: "Redis",      Icon: SiRedis      },
     ],
   },
   {

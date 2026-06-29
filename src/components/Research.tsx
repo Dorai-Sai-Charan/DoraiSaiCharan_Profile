@@ -11,6 +11,7 @@ const papers = [
     title: "AI-Driven Load Balancer for Cloud Computing Environments",
     publisher: "Lecture Notes in Networks and Systems",
     tags: ["Reinforcement Learning", "Cloud", "DDPG", "AWS"],
+    link: "https://link.springer.com/chapter/10.1007/978-3-032-06700-5_2",
   },
   {
     year: "2025",
@@ -18,6 +19,7 @@ const papers = [
     title: "Solar Panel Fault Detection Using Deep Learning",
     publisher: "IEEE, Bengaluru",
     tags: ["Computer Vision", "ResNet50", "VGG16", "Deep Learning"],
+    link: "https://ieeexplore.ieee.org/abstract/document/11341087?casa_token=eTrir2U19jQAAAAA:p_lgL850Dt7cDCOZ4OKjiWNxqJM-CRMghi1KHY_yU0ZzMlvNQ4HtvgfjC_w5fgUvTAoCbGhW8g",
   },
   {
     year: "2024",
@@ -25,6 +27,7 @@ const papers = [
     title: "Gesture Recognition Technology in Smart Gloves Enhanced by Machine Learning",
     publisher: "IEEE ICUIS",
     tags: ["Machine Learning", "IoT", "Gesture Recognition"],
+    link: "https://ieeexplore.ieee.org/abstract/document/10866957",
   },
 ];
 
@@ -49,12 +52,15 @@ export default function Research() {
       {/* Papers */}
       <div>
         {papers.map((p, i) => (
-          <motion.div
+          <motion.a
             key={p.title}
+            href={p.link}
+            target="_blank"
+            rel="noopener noreferrer"
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.1 + i * 0.12, ease: [0.33, 1, 0.68, 1] }}
-            className="spotlight-card group border-t py-8 flex flex-col md:flex-row md:items-start gap-4 md:gap-8 transition-colors rounded-lg px-2 -mx-2"
+            className="spotlight-card group border-t py-8 flex flex-col md:flex-row md:items-start gap-4 md:gap-8 transition-colors rounded-lg px-2 -mx-2 cursor-pointer"
             style={{ borderColor: "var(--border)" }}
             onMouseMove={(e) => {
               const rect = e.currentTarget.getBoundingClientRect();
@@ -102,7 +108,7 @@ export default function Research() {
                 <FiArrowUpRight size={14} />
               </div>
             </div>
-          </motion.div>
+          </motion.a>
         ))}
         <div className="border-t" style={{ borderColor: "var(--border)" }} />
       </div>
