@@ -3,48 +3,28 @@
 import { useRef } from "react";
 import { motion, useInView, useScroll, useTransform } from "framer-motion";
 import { HiAcademicCap } from "react-icons/hi";
-import { FiBookOpen, FiAward, FiBriefcase } from "react-icons/fi";
+import { FiBriefcase } from "react-icons/fi";
 
 const items = [
   {
-    year: "2025 — Present",
+    year: "Dec 2025 — Jun 2026",
     title: "Software Engineering Intern",
     subtitle: "New Street Tech · Bengaluru",
     detail: "Node.js · Fintech · Microservices · PostgreSQL",
     note: "Built scalable RESTful APIs for fintech applications, contributed to microservices architecture, and optimized complex PostgreSQL queries for distributed backend services.",
     Icon: FiBriefcase,
-    accent: true,
-    tag: "Current",
+    accent: false,
+    tag: "Internship",
   },
   {
-    year: "2022 — 2025",
+    year: "2022 — 2026",
     title: "Amrita Vishwa Vidyapeetham",
     subtitle: "B.Tech Computer Science with Artificial Intelligence",
-    detail: "8.69 CGPA · Bengaluru, Karnataka",
+    detail: "8.65 CGPA · Bengaluru, Karnataka",
     note: "Coursework: ML, Computer Vision, Cloud Computing, DBMS, OS, Computer Networks",
     Icon: HiAcademicCap,
     accent: false,
-    tag: "Degree",
-  },
-  {
-    year: "2025",
-    title: "3 Research Papers Published",
-    subtitle: "IEEE ICITEICS · ICT4SD · IEEE ICUIS",
-    detail: "International peer-reviewed conferences",
-    note: "Topics: Load Balancing (RL), Solar Fault Detection (CNN), Gesture Recognition (ML)",
-    Icon: FiBookOpen,
-    accent: false,
-    tag: "Research",
-  },
-  {
-    year: "Jul 2025",
-    title: "DevOps Bootcamp",
-    subtitle: "Amrita School of Computing, Bengaluru",
-    detail: "CI/CD Pipelines · DevOps Lifecycle · Monitoring Dashboards",
-    note: "Hands-on: Jenkins, GitHub Actions, BI dashboards, automation scripts",
-    Icon: FiAward,
-    accent: false,
-    tag: "Training",
+    tag: "Under Graduate",
   },
   {
     year: "2020 — 2022",
@@ -52,6 +32,16 @@ const items = [
     subtitle: "Senior Secondary Education",
     detail: "94% · Kurnool, Andhra Pradesh",
     note: "Stream: Mathematics, Physics, Chemistry",
+    Icon: HiAcademicCap,
+    accent: false,
+    tag: "Education",
+  },
+  {
+    year: "2020",
+    title: "Montessori Indus School",
+    subtitle: "Secondary Education",
+    detail: "CBSE · 90%",
+    note: "Kurnool, Andhra Pradesh",
     Icon: HiAcademicCap,
     accent: false,
     tag: "Education",
