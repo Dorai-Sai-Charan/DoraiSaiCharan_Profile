@@ -39,7 +39,7 @@ const projects = [
     num: "02",
     title: "Multimodal RAG Assistant",
     sub: "AI Research Document Intelligence",
-    stack: ["Python", "FastAPI", "ChromaDB", "Groq", "Next.js"],
+    stack: ["Next.js", "FastAPI", "Python", "ChromaDB"],
     description:
       "Indexes research PDFs by content type — text, tables, figures, equations — into ChromaDB for typed retrieval. Task-specific pipelines cover literature surveys, gap analysis, paper comparison, concept explanation, and more.",
     highlights: ["9 specialized RAG pipelines", "ReAct agent with 7 tools", "Groq LLaMA 3.3 + Gemini Vision"],
@@ -87,7 +87,7 @@ const projects = [
     sub: "Reinforcement Learning for Cloud Workloads",
     stack: ["Python", "TensorFlow", "AWS EC2", "DDPG"],
     description:
-      "Round-robin is dumb. A DDPG reinforcement learning agent routes tasks across a 5-node AWS EC2 cluster, dynamically adapting allocation to real-time server load. Published at ICT4SD 2025.",
+      "Round-robin is naive. A DDPG reinforcement learning agent routes tasks across a 5-node AWS EC2 cluster, dynamically adapting allocation to real-time server load. Published at ICT4SD 2025.",
     highlights: ["−14% energy consumption", "15ms consistent latency", "−15% memory vs. heuristics"],
     github: "",
     hue: "#5B2AE6",
@@ -381,7 +381,7 @@ export default function Projects() {
   const FeaturedVisual = projects[0].Visual;
 
   return (
-    <section id="projects" className="py-24 md:py-32 px-6 md:px-14 relative" ref={ref}>
+    <section id="projects" className="py-16 md:py-24 px-6 md:px-14 relative" ref={ref}>
 
       {/* Decorative background number */}
       <div

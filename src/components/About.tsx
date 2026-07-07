@@ -23,7 +23,7 @@ export default function About() {
   const isInView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <section id="about" className="py-28 md:py-36 px-6 md:px-14 relative" ref={ref}>
+    <section id="about" className="py-16 md:py-24 px-6 md:px-14 relative" ref={ref}>
       {/* Decorative background number */}
       <div
         aria-hidden
@@ -39,7 +39,7 @@ export default function About() {
       </div>
       {/* Label */}
       <motion.div variants={fadeUp(0)} initial="hidden" animate={isInView ? "visible" : "hidden"}
-        className="flex items-center gap-4 mb-20 relative z-10">
+        className="flex items-center gap-4 mb-16 relative z-10">
         <span className="section-label">01 — About</span>
         <span className="flex-1 h-px" style={{ background: "var(--border)" }} />
       </motion.div>

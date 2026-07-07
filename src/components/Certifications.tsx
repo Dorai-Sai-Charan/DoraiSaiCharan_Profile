@@ -23,12 +23,12 @@ export default function Certifications() {
   const isInView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <section id="certifications" className="py-24 md:py-32 px-6 md:px-14" ref={ref}>
+    <section id="certifications" className="py-10 md:py-14 px-6 md:px-14" ref={ref}>
       <motion.div
         initial={{ opacity: 0, x: -16 }}
         animate={isInView ? { opacity: 1, x: 0 } : {}}
         transition={{ duration: 0.5 }}
-        className="flex items-center gap-4 mb-16"
+        className="flex items-center gap-4 mb-12"
       >
         <span className="section-label">05 — Credentials</span>
         <span className="flex-1 h-px" style={{ background: "var(--border)" }} />

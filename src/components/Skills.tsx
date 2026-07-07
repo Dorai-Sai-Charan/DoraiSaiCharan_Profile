@@ -116,14 +116,14 @@ export default function Skills() {
   const isInView = useInView(ref, { once: true, margin: "-60px" });
 
   return (
-    <section id="skills" className="py-28 md:py-36" ref={ref}>
+    <section id="skills" className="py-16 md:py-24" ref={ref}>
       {/* Label */}
       <div className="px-6 md:px-14">
         <motion.div
           initial={{ opacity: 0, x: -16 }}
           animate={isInView ? { opacity: 1, x: 0 } : {}}
           transition={{ duration: 0.5 }}
-          className="flex items-center gap-4 mb-20"
+          className="flex items-center gap-4 mb-16"
         >
           <span className="section-label">06 — Tech Stack</span>
           <span className="flex-1 h-px" style={{ background: "var(--border)" }} />
@@ -135,7 +135,7 @@ export default function Skills() {
         initial={{ opacity: 0 }}
         animate={isInView ? { opacity: 1 } : {}}
         transition={{ duration: 0.6, delay: 0.1 }}
-        className="border-y py-3 mb-20"
+        className="border-y py-3 mb-16"
         style={{ borderColor: "var(--border)" }}
       >
         <div className="marquee-outer py-2">

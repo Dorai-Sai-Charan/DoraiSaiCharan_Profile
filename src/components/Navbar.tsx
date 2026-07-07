@@ -131,37 +131,13 @@ export default function Navbar() {
             download="Dorai_Sai_Charan_Resume.pdf"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 0.38 }}
-            className="flex items-center gap-1.5 font-display font-semibold px-4 py-2 rounded-lg border transition-all duration-200"
-            style={{
-              fontSize: "14px",
-              borderColor: "rgba(255,255,255,0.08)",
-              color: "var(--white-3)",
-            }}
-            onMouseEnter={e => {
-              e.currentTarget.style.borderColor = "rgba(109,50,255,0.35)";
-              e.currentTarget.style.color = "var(--white-1)";
-            }}
-            onMouseLeave={e => {
-              e.currentTarget.style.borderColor = "rgba(255,255,255,0.08)";
-              e.currentTarget.style.color = "var(--white-3)";
-            }}
-          >
-            <FiDownload size={13} />
-            Resume
-          </motion.a>
-
-          <motion.a
-            href="mailto:doraisaicharan09@gmail.com"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
             whileHover={{
               scale: 1.04,
               boxShadow: "0 0 36px rgba(91,42,230,0.45), inset 0 1px 0 rgba(255,255,255,0.12)",
             }}
             whileTap={{ scale: 0.97 }}
-            transition={{ delay: 0.45, type: "spring", stiffness: 300, damping: 30 }}
-            className="relative font-display font-semibold px-5 py-2 rounded-lg overflow-hidden"
+            transition={{ delay: 0.38, type: "spring", stiffness: 300, damping: 30 }}
+            className="relative flex items-center gap-1.5 font-display font-semibold px-4 py-2 rounded-lg overflow-hidden"
             style={{
               fontSize: "14px",
               color: "var(--white-1)",
@@ -169,7 +145,8 @@ export default function Navbar() {
               boxShadow: "0 8px 32px rgba(91,42,230,0.35), inset 0 1px 0 rgba(255,255,255,0.10)",
             }}
           >
-            Hire me
+            <FiDownload size={13} />
+            Resume
           </motion.a>
         </div>
 
@@ -226,7 +203,8 @@ export default function Navbar() {
             ))}
             <div className="mt-5 flex gap-3">
               <a
-                href="mailto:doraisaicharan09@gmail.com"
+                href="#contact"
+                onClick={() => setOpen(false)}
                 className="flex-1 text-center py-2.5 rounded-lg font-display font-semibold text-sm"
                 style={{
                   background: "linear-gradient(135deg, #5B2AE6 0%, #6D32FF 100%)",
@@ -234,7 +212,7 @@ export default function Navbar() {
                   boxShadow: "0 8px 32px rgba(91,42,230,0.35)",
                 }}
               >
-                Hire me
+                Contact Me
               </a>
             </div>
           </motion.div>

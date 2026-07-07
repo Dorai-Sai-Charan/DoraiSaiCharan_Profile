@@ -59,13 +59,13 @@ export default function Timeline() {
   const lineHeight = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
 
   return (
-    <section id="timeline" className="py-28 md:py-36 px-6 md:px-14" ref={ref}>
+    <section id="timeline" className="py-16 md:py-24 px-6 md:px-14" ref={ref}>
       {/* Label */}
       <motion.div
         initial={{ opacity: 0, x: -16 }}
         animate={isInView ? { opacity: 1, x: 0 } : {}}
         transition={{ duration: 0.5 }}
-        className="flex items-center gap-4 mb-20"
+        className="flex items-center gap-4 mb-16"
       >
         <span className="section-label">03 — Journey</span>
         <span className="flex-1 h-px" style={{ background: "var(--border)" }} />

@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
-import { FiGithub, FiLinkedin, FiMail, FiArrowDownRight, FiDownload } from "react-icons/fi";
+import { FiGithub, FiLinkedin, FiMail, FiArrowDownRight } from "react-icons/fi";
 import Image from "next/image";
 
 function WordReveal({ text, delay = 0 }: { text: string; delay?: number }) {
@@ -25,7 +25,7 @@ function WordReveal({ text, delay = 0 }: { text: string; delay?: number }) {
   );
 }
 
-const ROLES = ["AI Engineer", "ML Researcher", "Backend Engineer", "3× IEEE Author"];
+const ROLES = ["AI Engineer", "ML Researcher", "Backend Engineer"];
 
 function FlipWords({ words }: { words: string[] }) {
   const [idx, setIdx] = useState(0);
@@ -116,7 +116,7 @@ export default function Hero() {
             <div
               className="font-display font-extrabold leading-[0.92] tracking-tight mb-1 select-none"
               style={{
-                fontSize: "clamp(3.5rem, 10vw, 9rem)",
+                fontSize: "clamp(3.1rem, 8.5vw, 7.8rem)",
                 background: "linear-gradient(120deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.82) 50%, #6D32FF 100%)",
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
@@ -130,7 +130,7 @@ export default function Hero() {
             <div
               className="font-display font-extrabold leading-[0.92] tracking-tight mb-8 select-none"
               style={{
-                fontSize: "clamp(3.5rem, 10vw, 9rem)",
+                fontSize: "clamp(3.1rem, 8.5vw, 7.8rem)",
                 marginLeft: "clamp(0.5rem, 2.5vw, 3rem)",
                 display: "flex",
                 alignItems: "baseline",
@@ -194,23 +194,16 @@ export default function Hero() {
               </a>
               <a
                 href="#contact"
-                className="px-7 py-3 rounded-lg font-display font-semibold text-sm border transition-all duration-200"
-                style={{ borderColor: "var(--border-strong)", color: "var(--text-2)" }}
-                onMouseEnter={e => { e.currentTarget.style.borderColor = "var(--accent-border)"; e.currentTarget.style.color = "var(--text)"; }}
-                onMouseLeave={e => { e.currentTarget.style.borderColor = "var(--border-strong)"; e.currentTarget.style.color = "var(--text-2)"; }}
+                className="px-7 py-3 rounded-lg font-display font-semibold text-sm transition-all duration-200"
+                style={{
+                  color: "var(--white-1)",
+                  background: "linear-gradient(135deg, #5B2AE6 0%, #6D32FF 100%)",
+                  boxShadow: "0 8px 32px rgba(91,42,230,0.35), inset 0 1px 0 rgba(255,255,255,0.10)",
+                }}
+                onMouseEnter={e => { e.currentTarget.style.boxShadow = "0 0 36px rgba(91,42,230,0.45), inset 0 1px 0 rgba(255,255,255,0.12)"; }}
+                onMouseLeave={e => { e.currentTarget.style.boxShadow = "0 8px 32px rgba(91,42,230,0.35), inset 0 1px 0 rgba(255,255,255,0.10)"; }}
               >
                 Contact Me
-              </a>
-              <a
-                href="/resume.pdf"
-                download="Dorai_Sai_Charan_Resume.pdf"
-                className="inline-flex items-center gap-2 px-7 py-3 rounded-lg font-display font-semibold text-sm border transition-all duration-200"
-                style={{ borderColor: "var(--accent-border)", color: "var(--accent)" }}
-                onMouseEnter={e => { e.currentTarget.style.background = "var(--accent-dim)"; }}
-                onMouseLeave={e => { e.currentTarget.style.background = ""; }}
-              >
-                <FiDownload size={14} />
-                Resume
               </a>
             </motion.div>
 
